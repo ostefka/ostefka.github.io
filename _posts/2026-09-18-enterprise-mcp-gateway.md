@@ -602,7 +602,13 @@ decision on it.
 *Written from hands-on testing in a live tenant, September 2026. Not official Microsoft guidance.
 Verify before relying on it — especially the Microsoft 365 registration steps, which are changing
 quickly. Corrections welcome — open an issue on the repository.*
+
 ---
+
+<p style="font-size: 0.95em; margin-top: 2.5em; color: #606c71;">
+  Written by <strong>Ondrej Stefka</strong> &middot;
+  <a href="https://www.linkedin.com/in/ondrej-stefka-71a7a821">LinkedIn</a>
+</p>
 
 <p style="font-size: 0.95em; margin-top: 2em;">
   <a href="{{ '/about' | relative_url }}">About this blog &rarr;</a>

@@ -397,6 +397,11 @@ Copilot messages by hand.
 
 ---
 
+<p style="font-size: 0.95em; margin-top: 2.5em; color: #606c71;">
+  Written by <strong>Ondrej Stefka</strong> &middot;
+  <a href="https://www.linkedin.com/in/ondrej-stefka-71a7a821">LinkedIn</a>
+</p>
+
 <p style="font-size: 0.95em; margin-top: 2em;">
   <a href="{{ '/about' | relative_url }}">About this blog &rarr;</a>
 </p>

@@ -8,9 +8,12 @@ Published at **https://ostefka.github.io/**
 
 Articles live in [`_posts/`](_posts/).
 
+By Ondrej Stefka — [LinkedIn](https://www.linkedin.com/in/ondrej-stefka-71a7a821)
+
 ## Disclaimer
 
-This is a personal blog. It reflects my own testing and opinions. It is not an
+This is a personal blog, written in a personal capacity. It reflects my own
+testing and opinions, and represents the views of no one but me. It is not an
 official Microsoft statement and it is not official Microsoft documentation in
 any way. For authoritative guidance refer to https://learn.microsoft.com/
 

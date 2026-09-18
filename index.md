@@ -30,5 +30,7 @@ documentation. Where a claim is reasoning rather than measurement, it says so.
 ---
 
 <p style="font-size: 0.95em; margin-top: 2em;">
+  By <strong>Ondrej Stefka</strong> &middot;
+  <a href="https://www.linkedin.com/in/ondrej-stefka-71a7a821">LinkedIn</a> &middot;
   <a href="{{ '/about' | relative_url }}">About this blog &rarr;</a>
 </p>
