@@ -1,0 +1,30 @@
+title: "Field notes"
+description: "Hands-on testing of Microsoft 365 Copilot, Cowork and Copilot Studio in real Azure environments. Measurements, not documentation."
+url: "https://ostefka.github.io"
+baseurl: ""
+
+theme: jekyll-theme-cayman
+
+repository: ostefka/ostefka.github.io
+show_downloads: false
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-redirect-from
+
+# Posts carry an explicit permalink each, so the URL never encodes the date and
+# an article can be retitled without breaking a link somebody already shared.
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: default
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+  - .jekyll-cache
