@@ -345,7 +345,8 @@ three registrations, and expect the terminology to differ between them for the s
 Copilot Studio is self-contained — its wizard takes an OAuth client id and secret and generates its
 own connector. **Cowork and Microsoft 365 Copilot are not.** Both consume a third object that lives
 in neither Entra nor the admin centre: an **Entra SSO client ID registration**, created in the Teams
-Developer Portal. One registration serves both surfaces.
+Developer Portal at **[dev.teams.microsoft.com](https://dev.teams.microsoft.com/)**. One registration
+serves both surfaces.
 
 So the full set of components is four, not three:
 
@@ -353,14 +354,16 @@ So the full set of components is four, not three:
 |---|---|---|---|
 | 1 | The MCP server's **app registration** (the API) | Entra ID | all three |
 | 2 | A **connector** with OAuth client id + secret | Copilot Studio | Studio only |
-| 3 | An **Entra SSO client ID registration** | Teams Developer Portal | Cowork + M365 Copilot |
+| 3 | An **Entra SSO client ID registration** | [dev.teams.microsoft.com](https://dev.teams.microsoft.com/) | Cowork + M365 Copilot |
 | 4 | A **plugin package** / **connector record** | admin centre | Cowork / M365 Copilot |
 
 **And components 1 and 3 depend on each other, in that order.** This is the part worth knowing
 before you start, because the loop is not obvious from either end:
 
 1. Create the Entra app registration first — component 3 asks for its **client id**.
-2. Create the SSO registration in the portal. It returns a **registration id**.
+2. Create the SSO registration in the portal. Set **Restrict usage by app** to **"Any Teams app"** —
+   binding it to one specific application id silently breaks tool calls, with no traffic reaching
+   the server at all. Keep the organisation restriction. It returns a **registration id**.
 3. **Go back to Entra** and add two things derived from that registration id:
    - an additional identifier URI of the form `api://auth-<registration-id>/<app-id>`. The portal
      generates this shape and will not accept the plain `api://<app-id>` you already have. **Add it;
@@ -380,20 +383,12 @@ before you start, because the loop is not obvious from either end:
 > unrelated to the gateway. This is the same audience-list rule from section 1, and this is the
 > change most likely to trigger it.
 
-### Two more registration findings
+### Your application does not need to be multi-tenant
 
-- **One setting in the SSO registration is labelled "for testing only" and is the only one that
-  worked.** It governs which Teams application may use the registration. The reassuring-sounding
-  alternative — binding it to one specific application id — silently broke tool calls, with zero
-  traffic reaching the server. We kept the organisation restriction and left the application
-  restriction broad. We have **not** established that this is the supported production
-  configuration; settle that before a production rollout rather than concluding from this post that
-  the warning label is wrong.
-- **Your application does not need to be multi-tenant.** Guides say to make it so, citing an error
-  we only ever saw on the shared multi-tenant sign-in endpoint. All three surfaces worked against our
-  single-tenant registration. Check which authority your registration path actually uses before
-  changing the sign-in audience — but an internal server should stay single-tenant, and a security
-  team is right to push back on anything else.
+Guides say to make it so, citing an error we only ever saw on the shared multi-tenant sign-in
+endpoint. All three surfaces worked against our single-tenant registration. Check which authority
+your registration path actually uses before changing the sign-in audience — but an internal server
+should stay single-tenant, and a security team is right to push back on anything else.
 
 ### Makers must never need directory rights
 
