@@ -340,8 +340,6 @@ that is the part which is genuinely hard to discover. As of today:
 They are **not unified**. A server registered for one does not appear in another. Plan onboarding as
 three registrations, and expect the terminology to differ between them for the same idea.
 
-### The component nobody mentions: the Teams Developer Portal
-
 Copilot Studio is self-contained — its wizard takes an OAuth client id and secret and generates its
 own connector. **Cowork and Microsoft 365 Copilot are not.** Both consume a third object that lives
 in neither Entra nor the admin centre: an **Entra SSO client ID registration**, created in the Teams
