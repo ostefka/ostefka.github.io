@@ -552,8 +552,10 @@ That distinction resolved four separate failures for us where the Microsoft-side
 useful. Log per call: timestamp, correlation id, which server and tool, outcome, latency, and the
 user and application ids from the token. **Never tool arguments, never tokens.**
 
-One caveat we hit: **all these surfaces present the same generic browser user-agent string**, so you
-cannot tell them apart from the request. The nearest thing available is the OAuth client claim in the
+One caveat we hit: **Microsoft 365 Copilot's traffic — Copilot Chat and the Researcher agent alike —
+arrived with one identical, generic browser user-agent string**, so you cannot tell even those two
+apart from the request. Do not rely on the user-agent to identify the calling product. The nearest
+thing available is the OAuth client claim in the
 token — `appid` in a v1 token, `azp` in a v2 one — and you have to log it deliberately, because
 nothing hands it to you. Read it as *which client asked*, not *which product*: surfaces sharing a
 token broker share that identity, so it may not separate them at all. Never make an authorization
