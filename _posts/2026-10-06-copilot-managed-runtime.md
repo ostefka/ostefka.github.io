@@ -18,12 +18,12 @@ permalink: /managed-runtime/
 > run, whose identity does it use, what data can it touch, and who can see that it exists?**
 >
 > **Copilot Managed Runtime** (public preview) is Microsoft's answer: a Microsoft-hosted runtime inside
-> the Microsoft 365 tenant boundary where every app — whether a business user built it in Copilot
-> Cowork, a maker in Copilot Studio, or a developer with *any* coding agent — gets Entra sign-in, governed
-> data access, one inventory and one set of admin controls.
+> the Microsoft 365 tenant boundary where every app — whether a business user built it in the Microsoft
+> 365 Copilot app (Code or Cowork), a maker in Copilot Studio, or a developer with *any* coding agent —
+> gets Entra sign-in, governed data access, one inventory and one set of admin controls.
 >
-> It is **off by default**. An admin turns it on in the Microsoft 365 admin center, and apps run on
-> Power Apps Premium or Copilot Credits. I built four apps on it in three days — with **Claude Code**,
+> It is **largely off by default**: an admin sets up app governance and opens the creation paths in the
+> Microsoft 365 admin center, and apps run on Power Apps Premium or Copilot Credits. I built four apps on it in three days — with **Claude Code**,
 > not a Microsoft AI — which says something about how open it is.
 
 > **What this article is.** An introduction and an opinion, grounded in a few days of hands-on use in a
@@ -57,19 +57,22 @@ In one sentence: **a Microsoft-operated runtime in your Microsoft 365 tenant whe
 with your identity, your data policies and your oversight, regardless of what built them.**
 
 ```
- Copilot Cowork      ─┐
- Copilot Studio      ─┤                      ┌─► Dataverse, SharePoint, Outlook, Teams,
- ms CLI + SDK with   ─┼─►  Managed Runtime  ─┼─► Work IQ (Microsoft 365 Copilot),
- GitHub Copilot,      │    Entra sign-in     └─► Copilot Studio agents, 1,500+ connectors
- Claude Code, Codex  ─┤    governed data           — always as the signed-in user
- Lovable             ─┘    one inventory
+ Microsoft 365 Copilot app ─┐
+   Code · Cowork            │
+ Copilot Studio            ─┤                      ┌─► Dataverse, SharePoint, Outlook, Teams,
+ ms CLI + SDK with         ─┼─►  Managed Runtime  ─┼─► Work IQ (Microsoft 365 Copilot),
+   GitHub Copilot,          │    Entra sign-in     └─► Copilot Studio agents, 1,500+ connectors
+   Claude Code, Codex       │    governed data           — always as the signed-in user
+ Lovable                   ─┘    one inventory
 ```
 
 A few things make it feel different from "yet another hosting option":
 
-- **Many front doors, one runtime.** A business user describes an app in Copilot Cowork; a maker builds
-  one in Copilot Studio; a developer uses the `ms` command line with whatever coding agent they like. All
-  of it ends up in the same place, governed the same way.
+- **Many front doors, one runtime.** The most visible one is the **Microsoft 365 Copilot app** itself: its
+  **Code** mode turns a plain-language description into a reusable app grounded in the user's work context
+  (Microsoft describes it as running in a sandbox and hosted in the tenant), and **Cowork** can build simpler
+  apps as one of its skills. A maker builds in Copilot Studio; a developer uses the `ms` command line with
+  whatever coding agent they like. All of it ends up in the same place, governed the same way.
 - **No secrets in the app, by design.** The app is a static web app running in a sandbox. It cannot call
   arbitrary endpoints. Every data call goes through a governed connector, under the signed-in user's own
   identity, through the organisation's data-loss-prevention and connector policies. There is no API key
@@ -85,9 +88,14 @@ If you know Power Platform, this will feel familiar underneath: environments, co
 policies are the same machinery that governs Power Apps today. What is new is the code-first, AI-first
 front end, the Git-based build pipeline, the admin-center inventory and consumption billing.
 
-## It is off by default — and that is the right call
+## It is (largely) off by default — and that is the right call
 
-Nothing happens until an administrator decides it should. In the Microsoft 365 admin center, **Apps →
+The runtime itself is present in every eligible tenant, but the doors into it are mostly closed until an
+administrator opens them. The developer command-line path is switched off by default; app building in
+Copilot Code and Cowork arrives through Microsoft's early-access Frontier programme; and governance has to
+be set up. *(Measured: in the lab tenant, nothing could be built from the command line until an
+administrator had done this. Per the documentation, app creation in Copilot Studio is the exception — on by
+default during the preview, and controlled from the same place.)* In the Microsoft 365 admin center, **Apps →
 Overview** walks an admin through setting up app governance: it creates a governance group with
 Microsoft-managed default rules (who gets a personal development environment, which connectors and MCP
 servers apps may use, how widely apps may be shared, which content sources the browser may load) and
@@ -166,7 +174,8 @@ What it took in practice, at the level of "what kind of work" rather than a reci
   from an unpushed commit. A coding agent that reads those rules produces apps that pass governance by
   construction.
 
-Nothing here depends on Claude specifically. Anything that can run a command line and write a React app —
+Microsoft's own entry points are AI too, of course — Copilot Code is described as built on the same
+underlying technology as GitHub Copilot — but nothing here depends on Microsoft's AI, or on Claude specifically. Anything that can run a command line and write a React app —
 Codex, Gemini-based agents, an IDE assistant — can use the same path. *(Reasoning, not measurement: I
 built with Claude Code only; I have not run the same build with Codex.)* Lovable already publishes into
 the runtime directly.
@@ -194,9 +203,10 @@ anything business-critical I would wait for general availability and proper ALM.
   AI-built apps, not a handful of projects.
 - **Copilot Managed Runtime moves the control point** from "which tools may people use to build" to
   "where do the results run" — one runtime, one identity model, one inventory.
-- **It is off by default.** Turning it on is an admin decision in the Microsoft 365 admin center, with
-  credits or Premium licences behind it. Start with one creation path for one group.
-- **It is open.** Copilot, Claude, Codex or Lovable can build; the runtime governs.
+- **It is largely off by default.** Opening it up is an admin decision in the Microsoft 365 admin center,
+  with credits or Premium licences behind it. Start with one creation path for one group.
+- **It is open.** The Microsoft 365 Copilot app, Copilot Studio, Claude, Codex or Lovable can build; the
+  runtime governs.
 - **Apps beat chat when the answer must become data.** The best pattern pairs the two: the app owns the
   data and the workflow, Copilot supplies the judgement.
 
