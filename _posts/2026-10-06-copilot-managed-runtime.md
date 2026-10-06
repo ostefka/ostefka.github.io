@@ -23,8 +23,10 @@ permalink: /managed-runtime/
 > gets Entra sign-in, governed data access, one inventory and one set of admin controls.
 >
 > It is **largely off by default**: an admin sets up app governance and opens the creation paths in the
-> Microsoft 365 admin center, and apps run on Power Apps Premium or Copilot Credits. I built four apps on it in three days — with **Claude Code**,
-> not a Microsoft AI — which says something about how open it is.
+> Microsoft 365 admin center, and apps run on Power Apps Premium or Copilot Credits.
+>
+> I built apps on it both ways: in **Copilot Cowork**, the natural route for business users, and with
+> **Claude Code** — not a Microsoft AI — for the bigger ones. That says something about how open it is.
 
 > **What this article is.** An introduction and an opinion, grounded in a few days of hands-on use in a
 > lab tenant. It is not a step-by-step guide and not an official Microsoft statement. The product is in
@@ -132,8 +134,8 @@ before you plan around it.)*
 
 ## What I built, and with what
 
-To see whether this holds up beyond a hello-world, I built four apps for an investment-management
-storyline, all with fictional data:
+To see whether the developer route holds up beyond a hello-world, I built four apps with Claude Code for an
+investment-management storyline, all with fictional data:
 
 - a **cost calculator** (no data at all),
 - an **org explorer** on the Office 365 Users connector (management chain, profiles, photos),
@@ -153,49 +155,59 @@ that drafts an investment-committee memo against the firm's policy.
 Chat would have answered the question once. The app makes the answer **structured, repeatable, shared
 and actionable** — and the data never leaves Microsoft 365, because every call runs as the signed-in user.
 
-## Built with Claude Code — the platform is open to non-Microsoft AI
+## Two ways to build: Cowork for business users, Claude Code and its counterparts for technical ones
 
-All four apps were written by **Claude Code**, driving Microsoft's `ms` command line on a Linux server.
-That is not a workaround. Microsoft publishes the command line and SDK on npm, and a plugin for coding
-agents in its own GitHub repository that works with GitHub Copilot and Claude Code. Its skills turned out to
-be the best practical documentation available — how to wire Work IQ, how to bind Dataverse tables,
-which rules the sandbox enforces.
+For **business users** the natural route is **Copilot Cowork** (and Code) in the Microsoft 365 Copilot app:
+describe the app in a chat, refine it in a live preview, publish and share. No tooling, no repository to
+think about — and the result lands in the same governed runtime as everything else. I used it for the
+simpler apps, and it is the part that gets a room full of non-developers leaning forward.
+
+For **more technical users** there is a second route that doesn't involve a Microsoft AI at all. The bigger
+apps here were written by **Claude Code**, driving Microsoft's `ms` command line on a Linux server. That is
+not a workaround: Microsoft publishes the command line and SDK on npm, and a plugin for coding agents in its
+own GitHub repository that works with GitHub Copilot and Claude Code. Its skills turned out to be the best
+practical documentation available — how to wire Work IQ, how to bind Dataverse tables, which rules the
+sandbox enforces.
 
 What it took in practice, at the level of "what kind of work" rather than a recipe:
 
-- **Reading the source as well as the docs.** The SDK's type definitions and the CLI's bundled code
-  answered questions the preview documentation doesn't yet cover — and revealed features still behind
-  flags, such as server-side functions, a built-in per-app database and test/production stages.
-- **Making a headless server a first-class citizen.** Sign-in by device code, a token cache that
-  survives without a desktop keyring, and Git credentials for the platform's repositories took more time
-  than any of the apps. Expect that on a locked-down build agent too.
-- **Letting the agent follow Microsoft's rules.** The plugin is opinionated in useful ways — connectors
-  only, least-privilege action lists for shared connections, never edit generated code, never deploy
-  from an unpushed commit. A coding agent that reads those rules produces apps that pass governance by
-  construction.
+- **Reading the source as well as the docs.** The SDK's type definitions answered questions the preview
+  documentation doesn't cover yet.
+- **Sign-in on a headless server.** On a normal laptop the command line signs in through the browser. On a
+  server it needs device-code sign-in — and many enterprises block device-code flow with Conditional Access.
+  If yours does, build from a machine with a browser, and use the service-principal route that the CI/CD
+  guidance describes for pipelines. Getting a token cache and Git credentials to behave on a server without a
+  desktop keyring also took more time than any of the apps.
+- **Letting the agent follow Microsoft's rules.** The plugin is opinionated in useful ways — connectors only,
+  least-privilege action lists for shared connections, never edit generated code, never deploy from an
+  unpushed commit. A coding agent that reads those rules produces apps that pass governance by construction.
 
-Microsoft's own entry points are AI too, of course — Copilot Code is described as built on the same
-underlying technology as GitHub Copilot — but nothing here depends on Microsoft's AI, or on Claude specifically. Anything that can run a command line and write a React app —
-Codex, Gemini-based agents, an IDE assistant — can use the same path. *(Reasoning, not measurement: I
-built with Claude Code only; I have not run the same build with Codex.)* Lovable already publishes into
-the runtime directly.
+I tested with Claude Code. Other AI coding tools — Codex, GitHub Copilot, Gemini-based agents, IDE
+assistants — will very likely work in a similar way: the path is a command line, an SDK and a React app,
+nothing specific to one model. Lovable already publishes into the runtime directly.
 
 That openness is, to me, the most important design decision in the product. It says: **build with
 whatever your people like; run it where you can govern it.**
 
 ## What to be honest about
 
-It is a public preview, and it shows in places:
+It is a public preview, and it behaves like one:
 
-- No promotion from development to test to production yet (it exists in the command line behind a flag).
-- Pushes to an app's repository are not audited yet; build, deploy and launch are.
-- Some edges are rough: one data connector name is ambiguous in the CLI, a build that normally takes forty
-  seconds once took ten minutes, and generated types occasionally needed a hand-written cast.
-- An app cannot call an AI model directly from the browser — only through connectors such as Work IQ or
-  a Copilot Studio agent. That is a feature for governance and a constraint for some designs.
+- **Lifecycle is Git-based.** Every app has a repository (platform-managed or GitHub Enterprise Cloud with
+  your branch policies and pull requests), preview and live are separate, and you deploy and roll back by
+  commit. If your organisation expects multi-environment promotion with different data connections per
+  stage, check where the documentation stands before planning around it.
+- **Know what is audited.** Creating, building, deploying and launching apps show up in the audit log; check
+  that the documented events cover your requirements.
+- **Expect preview rough edges** in tooling — the odd command-line or code-generation quirk, and build times
+  that vary.
+- **Apps don't talk to the internet by default.** An app can't call arbitrary endpoints — AI models
+  included — unless an administrator allows them in the content security policy; the intended path is
+  connectors such as Work IQ or a Copilot Studio agent. A feature for governance, a constraint for some
+  designs.
 
-None of that changes the shape of the idea. For team and departmental apps it is usable today; for
-anything business-critical I would wait for general availability and proper ALM.
+None of that changes the shape of the idea. Team and departmental apps are a good place to start today; for
+business-critical processes, review the preview terms and the current state of the documentation first.
 
 ## Takeaways
 
