@@ -230,6 +230,38 @@ throwaway.
 That openness is, to me, the most important design decision in the product. It says: **build with
 whatever your people like; run it where you can govern it.**
 
+## Can business users and developers work on the same app? What my experiments showed
+
+This is the question every handover raises: if developers build something, can the business keep adjusting it
+in Cowork afterwards — and the other way round? The documentation covers one direction (the clone above).
+The rest of this section is **what I observed in a lab tenant, a handful of times** — not a documented
+contract, and the behaviour may well change.
+
+**An app built in code was not editable in Cowork.** I asked Cowork to change one character in Portfolio Desk,
+an app scaffolded by the command line. Cowork found the app, opened it and made the edit, but would not
+publish it. Its own explanation, and a look at an app Cowork had created, suggest why: Cowork builds every app
+from its own project template and works inside a sandbox with a fixed set of pre-installed packages, a few
+protected configuration files and a check that must pass before publishing. An app from a different template
+doesn't fit that box.
+
+**An app started in Cowork went back and forth without trouble.**
+
+1. In Cowork I described a fund fee and return explorer; Cowork built and published a first version, but left
+   out a fee calculator.
+2. With Claude Code I cloned the app and added the calculator in code — changing only application source
+   files, using only packages the project already had, and running the same kinds of checks the project defines.
+   Pushed, built by the platform, previewed.
+3. In a *new* Cowork conversation I asked for a small change ("make the default horizon 15 years"). Cowork picked
+   up the code-written calculator, changed exactly that one line, and published.
+
+The app's Git history shows the three steps in a straight line — Cowork, then code, then Cowork — with nothing
+overwritten. (A small aside: the model selector in that Cowork session showed Claude Opus, so the business-user
+route ran on a Claude model too.)
+
+My working conclusion, to be re-checked before relying on it: **if business users are expected to keep
+adjusting an app, start it in Cowork and let developers extend it within that project's conventions; an app
+started from the developer template may stay a developer-only app.**
+
 ## What to be honest about
 
 It is a public preview, and it behaves like one:
@@ -260,6 +292,8 @@ business-critical processes, review the preview terms and the current state of t
   with credits or Premium licences behind it. Start with one creation path for one group.
 - **It is open.** The Microsoft 365 Copilot app, Copilot Studio, Claude, Codex or Lovable can build; the
   runtime governs.
+- **Plan who will maintain the app.** In my tests an app started in Cowork could move between Cowork and
+  code; an app started from the developer template could not be edited in Cowork. Observed, not documented.
 - **Apps beat chat when the answer must become data.** The best pattern pairs the two: the app owns the
   data and the workflow, Copilot supplies the judgement.
 
