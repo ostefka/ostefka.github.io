@@ -90,6 +90,18 @@ If you know Power Platform, this will feel familiar underneath: environments, co
 policies are the same machinery that governs Power Apps today. What is new is the code-first, AI-first
 front end, the Git-based build pipeline, the admin-center inventory and consumption billing.
 
+## One place to find every app
+
+There is also, finally, **one place where people find their apps**: the portal at
+[managedapps.cloud.microsoft](https://managedapps.cloud.microsoft). Everything a user built, everything shared
+with them and everything they may open sits in one list with recents and search — whether it came from
+the Copilot app, Copilot Studio or a developer's command line. AI-built apps have so far lived wherever the
+tool that built them put them; this gives them a single front door.
+
+![The app portal at managedapps.cloud.microsoft: recents, my apps, shared with me, all](/assets/managed-runtime/app-portal.webp)
+
+*The app portal: the same list for apps built in Cowork and apps built with Claude Code.*
+
 ## It is (largely) off by default — and that is the right call
 
 The runtime itself is present in every eligible tenant, but the doors into it are mostly closed until an
@@ -169,7 +181,31 @@ own GitHub repository that works with GitHub Copilot and Claude Code. Its skills
 practical documentation available — how to wire Work IQ, how to bind Dataverse tables, which rules the
 sandbox enforces.
 
-What it took in practice, at the level of "what kind of work" rather than a recipe:
+**What you need to do the same** (the developer route, on your own machine):
+
+1. An admin has turned on the command-line creation path for you (see above), and you have Power Apps
+   Premium or Copilot Credits.
+2. Install [Node.js](https://nodejs.org/) 24 LTS, Git and
+   [Git Credential Manager](https://github.com/git-ecosystem/git-credential-manager) — the platform's Git
+   repositories sign you in through it.
+3. Install Microsoft's command line from npm —
+   [`@microsoft/managed-apps-cli`](https://www.npmjs.com/package/@microsoft/managed-apps-cli), command `ms` —
+   and sign in with `ms auth login`.
+4. Give your coding agent Microsoft's plugin. In Claude Code (or the GitHub Copilot CLI):
+   `/plugin marketplace add microsoft/Managed-Apps`, then `/plugin install microsoft-managed-apps@Managed-Apps`.
+   It adds skills such as *create-app*, *add-dataverse*, *add-sharepoint*, *add-workiq*, *deploy* and *share*,
+   described in the [GitHub repository](https://github.com/microsoft/Managed-Apps). *(I had Claude Code read
+   those skills and drive the command line directly; installing the plugin is the shortcut.)*
+5. Describe the app. The agent creates it (`ms app create`), binds data (`ms app add data-source` generates
+   typed TypeScript for each connector or table), runs it locally (`ms app dev`), commits and pushes, and
+   deploys when you say so (`ms app deploy`).
+
+Microsoft's own walkthroughs: [quickstart with the command line](https://learn.microsoft.com/microsoft-365/managed-apps/developer/quickstart-managed-apps-cli),
+[quickstart with a coding agent](https://learn.microsoft.com/microsoft-365/managed-apps/developer/quickstart-github-copilot)
+(GitHub Copilot, and it notes Claude Code works the same way) and the
+[command reference](https://learn.microsoft.com/microsoft-365/managed-apps/developer/ms-cli-command-reference).
+
+What it took in practice, beyond those steps:
 
 - **Reading the source as well as the docs.** The SDK's type definitions answered questions the preview
   documentation doesn't cover yet.
@@ -185,6 +221,11 @@ What it took in practice, at the level of "what kind of work" rather than a reci
 I tested with Claude Code. Other AI coding tools — Codex, GitHub Copilot, Gemini-based agents, IDE
 assistants — will very likely work in a similar way: the path is a command line, an SDK and a React app,
 nothing specific to one model. Lovable already publishes into the runtime directly.
+
+The two routes also meet. An app started in Cowork or Copilot Studio is backed by a Git repository, so a
+developer with edit rights can [clone it and carry on in code](https://learn.microsoft.com/microsoft-365/managed-apps/developer/collaborate-on-app)
+(`ms app clone`) — the business user's prototype becomes the developer's starting point instead of a
+throwaway.
 
 That openness is, to me, the most important design decision in the product. It says: **build with
 whatever your people like; run it where you can govern it.**
@@ -221,6 +262,20 @@ business-critical processes, review the preview terms and the current state of t
   runtime governs.
 - **Apps beat chat when the answer must become data.** The best pattern pairs the two: the app owns the
   data and the workflow, Copilot supplies the judgement.
+
+## Further reading
+
+- [What is Copilot Managed Runtime](https://learn.microsoft.com/microsoft-365/managed-apps/) — the three
+  creation paths and the app portal
+- [Overview and key concepts for admins](https://learn.microsoft.com/microsoft-365/admin/manage/apps/) — governance,
+  inventory, monitoring, licensing
+- [SDK and CLI overview](https://learn.microsoft.com/microsoft-365/managed-apps/developer/) — the developer route
+- [Build solutions with Copilot Code](https://learn.microsoft.com/training/modules/build-solutions-copilot-code/) —
+  Microsoft Learn training module
+- [Create an app in Copilot Studio](https://learn.microsoft.com/microsoft-copilot-studio/apps-experience/create-app)
+- [Build apps with the App skill in Cowork](https://learn.microsoft.com/microsoft-365/copilot/cowork/use-cowork)
+- [microsoft/Managed-Apps on GitHub](https://github.com/microsoft/Managed-Apps) — templates, the coding-agent
+  plugin, GitHub Actions
 
 *Written from hands-on use in a lab tenant, October 2026. Not official Microsoft guidance. The product
 is in preview — verify before relying on any of it. Corrections welcome — open an issue on the
