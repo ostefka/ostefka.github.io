@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Setting up a Copilot Brand Kit from scratch"
-description: "A lab walkthrough of brand foundations, Copilot-ready templates, organization libraries and kit skills — with dated observations and a clear list of tests still pending."
+description: "A lab walkthrough of brand foundations, Copilot-ready templates and kit skills, plus the observed difference between an opt-in Brand Kit and organization skills with no per-app targeting."
 date: 2026-11-08
 permalink: /copilot-brand-kit/
 ---
@@ -19,9 +19,14 @@ permalink: /copilot-brand-kit/
 >
 > On **8 November 2026**, our kit also accepted Word and Excel templates. That proves upload acceptance;
 > it does not prove Copilot uses those templates. The generated-output tests remain pending.
+>
+> **The look belongs in an opt-in Brand Kit; shared company rules belong in a narrowly scoped organization
+> skill.** Our organization packages appeared in PowerPoint, Excel and Cowork, including Word-output skills
+> in the other apps. There is **no per-app targeting**. Word showed no skills yet in our tenant, and Excel's
+> `@brandkit` was still absent.
 
 > **What this article is.** A practical walkthrough combining Microsoft's public documentation with
-> dated observations from a lab tenant. Setup observations were last checked on **8 November 2026**.
+> dated observations from a lab tenant. Setup and deployment observations were last checked on **8 November 2026**.
 > Recommendations and test expectations are labelled; pending tests are not reported as results.
 
 Ask Copilot in PowerPoint for a board deck and you may get a tidy deck in nobody's colours. A Brand Kit gives it your brand's resources, but what you feed it needs to be built for Copilot. A logo, a hex code and last year's template won't get you there.
@@ -30,7 +35,7 @@ We built one from nothing for **Nimbus Telecom**, a Czech B2B telco in our lab t
 
 ## What a Brand Kit is now
 
-A Brand Kit is a named bundle of templates, logos, colours, fonts, images and icons, a brand voice and skills. You create it in the Copilot app. Users pick it in PowerPoint from the Copilot pane under **+ → Select brand**, and Microsoft says Copilot in Excel uses it too.
+A Brand Kit is a named bundle of templates, logos, colours, fonts, images and icons, a brand voice and skills. You create it in the Copilot app. Users explicitly pick it in PowerPoint from the Copilot pane under **+ → Select brand**. Microsoft's documented Excel route is **`@brandkit`**, which was still not visible in our tenant on **8 November 2026**.
 
 | Kit type | Who creates it | Who sees it |
 |---|---|---|
@@ -43,7 +48,7 @@ Four features do most of the work:
 
 - **Strict brand adherence** is a per-kit toggle on the kit's Templates page, set by the owner or a brand manager. Its label says it all: *"Use only approved template layouts. Copilot will not create new layouts."* Off, Copilot may get more creative with layouts, while still applying colours, fonts and assets.
 - **Notes steering** means plain-language instructions in the speaker notes of each sample slide.
-- **Brand skills** are Agent Skills attached to the kit, available to everyone with access to it.
+- **Brand skills** are Agent Skills attached to the kit, available to people with access once they select that brand.
 - **`brandkit`** is Microsoft's built-in Excel skill that applies the brand's colours and fonts.
 
 One recent change: **Brand Guidelines and Style were absent from our kit editor**. On **8 November 2026**, neither the article nor our kit editor listed them: its pages are Templates, Colors, Images, Icons, Fonts, Logos, Brand Voice and Skills. We do not rely on a guidelines PDF being read for us. Ours is for people.
@@ -263,15 +268,21 @@ Keeping them in the kit can give you one inventory per brand. But keep the Word 
 
 One small trap: our `.xltx` tile is almost blank. The file was built in code with no embedded thumbnail. Our proposed fix is to open it in desktop Excel, save it, and add it again; we have not yet confirmed that this restores the thumbnail.
 
-**What can go wrong:** expecting the kit to make Word documents on-brand. Today it doesn't, as far as we can show. Put house rules for documents into a skill instead (see the box below).
+**What can go wrong:** expecting the kit to make Word documents on-brand. We have not observed that. House rules can go into an organization skill, but Word itself showed no skills yet in our tenant on **8 November 2026**.
 
-> **Kit or organization skill? Selected versus available.**
-> A user must select a Brand Kit for each presentation (**+ → Select brand**). An organization skill, once an admin deploys it, is available to everyone in its scope, subject to their skill toggles. Availability does not guarantee that Copilot will invoke it or enforce its rules. Our proposed split is:
->
-> - **Shared company rules go into an organization skill:** deck structure, accessibility (alt text, contrast), number and date formats, the confidentiality label in the footer.
-> - **The look goes into the kit:** template, colours, fonts, images and brand-specific skills.
->
-> Our `nimbus-presentation-standards` organization skill is built this way. Its description says, in so many words, that with a Brand Kit selected, the kit decides the look. How to package and deploy it is in [the skills post](/copilot-skills/).
+### Brand Kit or organization skill?
+
+| Question | Brand Kit and its brand skills | Organization skill |
+|---|---|---|
+| When does it apply? | Only after explicit brand selection: **+ → Select brand** in PowerPoint; the documented Excel route is **`@brandkit`** | Always available to everyone in deployment scope in supporting apps, subject to user toggles; can be picked or automatically invoked when relevant |
+| What belongs here? | The look: template, colours, fonts, images, brand voice and brand-specific skills | Company rules: structure, accessibility, number/date formats and labels |
+| Can you target an app? | The brand is an opt-in choice per deck; Excel availability still awaits our tenant rollout | **No per-app targeting**; deployment is scoped to users and groups |
+
+Our rule of thumb: **the look → Brand Kit; always-on company rules → organization skill, scoped narrowly**. Here, "always-on" means available without selecting a brand. It does not mean Copilot invokes the skill every time or enforces its rules. `nimbus-presentation-standards` follows that split: its description leaves the look to the selected kit. The [full comparison in the skills post](/copilot-skills/#brand-kit-versus-organization-skill) covers routing and user controls.
+
+**Observed on 8 November 2026:** we deployed two skills-only packages through **Microsoft 365 admin center → Agents → All agents → Add agent**. After propagation, PowerPoint listed all three skills with an **organization** badge, including the two Word-output skills from **Nimbus Office Skills**. Excel listed both packages under **+ → Plugins**, and Cowork listed both under **Plugins → Cowork → Added**. Word showed no skills yet in our tenant; rollout is our expectation, not a confirmed explanation.
+
+That result matters to brand managers too: neither the manifest nor `SKILL.md` has a host/app targeting field. A Word-only description does not hide a skill from PowerPoint or Excel. Publish deliberately, scope packages to groups and split them by audience. The description is the only app "targeting" available to the router; **appearing in a picker does not mean being used**. Use precise trigger descriptions and a clear naming prefix, test every app before a wide rollout, and show users how to switch a skill off in **Manage plugins**. The [dated results and screenshots](/copilot-skills/#organization-skills-across-apps) are in the skills post.
 
 In our lab on **8 November 2026**, we could see the split in PowerPoint itself. Copilot pane → **…** → **Manage plugins** lists **Custom skills** and **Organization** as folders with on/off toggles, then Microsoft's own skills, including **Template assessment**. Kit skills aren't listed there: they arrive with the selected brand.
 
@@ -287,7 +298,7 @@ A brand skill turns "our board deck" into a procedure: which sample slides, in w
 - **Only some file types are allowed:** md, txt, csv, json, xml, html, svg, py and js. PNG, PDF and nested zips are not.
 - **To replace a skill, delete the old one first.** A same-name re-upload can leave a stale copy.
 
-In **Excel**, Microsoft's skills article lists the built-in **`brandkit`** skill for applying brand guidelines. On **8 November 2026** it was not available in our tenant. Whether it also invokes our custom `nimbus-excel-brand` skill, chooses the intended kit when several are available, or uses the kit's Excel template is **not yet confirmed in our tenant**.
+In **Excel**, Microsoft's [built-in skills article](https://support.microsoft.com/en-us/excel/copilot/copilot-in-excel-built-in-skills) lists **`@brandkit`** for applying brand guidelines. On **8 November 2026** it was still not visible in our tenant, even though our organization packages now appeared in Excel. Whether it also invokes our custom `nimbus-excel-brand` skill, chooses the intended kit when several are available, or uses the kit's Excel template is **not yet confirmed in our tenant**.
 
 ## Step 7: Test it
 
@@ -303,7 +314,7 @@ Use prompts with real numbers, because you are also checking that Copilot keeps 
 | 4 | Nimbus | `Create a 5-slide English overview of the June 12 outage: 4 h 18 min, 11,400 customers affected, credits CZK 1,240,000.` | English formats, takeaway titles, template layouts only |
 | 5 | FiberMax | `Udělej slide s týdenními čísly FiberMax: týden 38 = 112 aktivací, týden 39 = 96 aktivací.` | *Weekly figures.* Relabelled as pre-orders, because the launch was 1 October. Amber leads, charts stay Teal and Amber |
 | 6 | FiberMax | Same prompt as test 2 | *The contrast test.* A new layout may appear, while colours and fonts stay on brand |
-| 7 | Excel | In a cloud workbook: `brandkit apply our brand to this table and chart` | Brand colours and fonts applied, every value unchanged |
+| 7 | Excel | In a cloud workbook, once available: `@brandkit apply our brand to this table and chart` | Brand colours and fonts applied, every value unchanged |
 
 **Reading the contrast.** Once FiberMax exists, tests 2 and 6 will be the most useful demo here. Strict on means predictability, for official and customer-facing decks. Strict off lets Copilot invent a layout while the identity holds, which suits a launch or internal deck. Notes steering applies either way.
 
@@ -359,11 +370,12 @@ Use prompts with real numbers, because you are also checking that Copilot keeps 
 - [ ] Strict adherence chosen deliberately, per kit
 - [ ] Skills uploaded with `SKILL.md` at the zip root
 - [ ] Shared company rules in an organization skill, the look in the kit
+- [ ] Organization packages scoped by audience, with precise descriptions and a clear naming prefix; visibility and routing tested in every app
 - [ ] Published and tested by an ordinary user in PowerPoint, and in Excel once `brandkit` arrives
 
 ## What's next
 
-Four items remain on our list. **The FiberMax kit**, with strict adherence off, and the contrast test. **`brandkit` in Excel**, once it reaches our tenant, including whether it touches a kit's Excel template at all. **Meeting backgrounds:** six branded images go into Teams admin center → **Meetings → Customize meetings**, which needs Teams Premium. **The organization skill:** `nimbus-presentation-standards` handles footer labels, alt text and number formats with any kit, and is deployed in the Microsoft 365 admin center under **Agents → All agents → Add agent**. Its deployment and first live results remain unconfirmed; updates belong in [the skills post](/copilot-skills/).
+Four items remain on our list. **The FiberMax kit**, with strict adherence off, and the contrast test. **`@brandkit` in Excel**, once it reaches our tenant, including whether it touches a kit's Excel template at all. **Meeting backgrounds:** six branded images go into Teams admin center → **Meetings → Customize meetings**, which needs Teams Premium. **Organization-skill execution:** deployment and visibility of both packages are now observed in PowerPoint, Excel and Cowork. We still need to run `nimbus-presentation-standards` against a deck and check its footer labels, alt text and number formats, plus routing in each app. The [skills post](/copilot-skills/#organization-skills-across-apps) records the deployment result.
 
 ## Microsoft sources
 

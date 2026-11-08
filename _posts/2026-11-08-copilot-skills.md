@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "One skill, many Copilots"
-description: "Thirteen skills for one fictional company: how packaging, runtimes, testing, distribution and governance differ across Microsoft Copilot — and what remains unconfirmed."
+description: "Thirteen skills for one fictional company: packaging, runtimes and governance, observed organization skill deployment across apps, no per-app targeting, and when to choose a Brand Kit."
 date: 2026-11-08
 permalink: /copilot-skills/
 ---
@@ -17,13 +17,18 @@ permalink: /copilot-skills/
 > distribution and admin controls differ. Write for the hosts you need, make descriptions precise,
 > and test the expected business result as carefully as the zip.
 >
-> We built thirteen skills for a fictional company and partly deployed them. **None of those thirteen
-> has yet been run in a Microsoft 365 app.** The examples below are test plans and computed expectations,
-> alongside explicitly identified observations from earlier lab experiments.
+> **Observed on 8 November 2026:** two skills-only organization packages appeared in PowerPoint, Excel
+> and Cowork. Even our Word-output skills appeared in PowerPoint and Excel. **There is no per-app
+> targeting:** scope by users/groups and make the description route precisely. Word showed no skills
+> yet in our tenant. A Brand Kit is opt-in; an organization skill is available throughout its scope.
+>
+> We built thirteen skills for a fictional company. Deployment visibility is now observed, but **none
+> of the thirteen has yet been run in a Microsoft 365 app**. Output examples remain test plans and
+> computed expectations. Excel's **`@brandkit`** is still not visible in our tenant.
 
 > **What this article is.** An engineering field note combining public Microsoft documentation, local
-> build checks and dated lab observations, last checked on **8 November 2026**. Unknown runtime behaviour
-> and deployment results remain explicit open questions. It is not an official Microsoft statement.
+> build checks and dated lab observations, last checked on **8 November 2026**. Observed deployment
+> visibility is separated from untested execution and runtime behaviour. It is not an official Microsoft statement.
 
 We wrote thirteen skills for one fictional company and tried to put them everywhere Microsoft Copilot now accepts a skill. The format was the easy part: a folder with one Markdown file, accepted by very different products.
 
@@ -31,7 +36,7 @@ Everything around that file differs: whether a script runs, how the zip must be 
 
 Our test bed is **Nimbus Telecom**, a Czech B2B telco in our lab tenant. Nimbus Telecom and its sub-brand **FiberMax** are fictional. The brand setup is in [Brand Kit from scratch](/copilot-brand-kit/).
 
-**Where the lab stands on 8 November 2026.** The skills are built, validated and partly deployed. **None of the thirteen has yet been run in a Microsoft 365 app**, and the organization skill's deployment result is **not yet confirmed in our tenant**. "Expected" means computed from the data, not produced by Copilot. Separate observations from earlier lab experiments are identified as such.
+**Where the lab stands on 8 November 2026.** The skills are built, validated and partly deployed. Two organization packages now appear in PowerPoint, Excel and Cowork after deployment through **Agents → All agents → Add agent**. Word showed no skills yet in our tenant. **None of the thirteen has yet been run in a Microsoft 365 app**: listing a package or skill proves visibility, not output quality or automatic invocation. "Expected" means computed from the data, not produced by Copilot. Separate observations from earlier lab experiments are identified as such.
 
 We use Microsoft's new names: **Microsoft Copilot** and **Microsoft Copilot Chat**.
 
@@ -106,6 +111,8 @@ Competing skills need an explicit hand-off, or routing becomes a coin toss. In o
 
 Our build now fails if that wording disappears. The same goes for skills you didn't write: `nimbus-meeting-followup-pack` was already in the Cowork folder and also responds to "zápis" (minutes), so `nimbus-meeting-minutes` now names it as the skill for a full follow-up pack.
 
+Our **8 November 2026** organization deployment made this practical: the Word-output skills appeared in PowerPoint and Excel too. There is no host/app targeting field in the manifest or `SKILL.md`; the example's `metadata.surface` is descriptive text, not an app restriction. **The description is the only app "targeting" available to the router.** State the intended app, input, output and exclusions precisely. That can steer automatic use; it does not remove a skill from another app's picker or create an enforcement boundary.
+
 ### A skill can lose to something other than a skill
 
 In a separate earlier Copilot Studio lab experiment, a business calculation question went to web search instead of the intended skill, skipping its curated rule. An explicit instruction to use the skill changed the routing, and the result matched the fixture. This was not one of the thirteen Nimbus skills. If a skill holds curated business facts, test the question with web search on.
@@ -117,10 +124,10 @@ The map as of **8 November 2026**. Unless a row says otherwise, it comes from Mi
 | Surface | Custom skills? | How you author | Do scripts run? | Published limits |
 |---|---|---|---|---|
 | **Copilot Chat** | Rolling out; availability not yet confirmed in our tenant | Create, edit, upload; invoke automatically or with `/` or a direct mention | May include "supporting files or scripts"; runtime not detailed | None published |
-| **Cowork** | Yes, the fullest end-user implementation | **Customize → Skills → Add** (guided, or upload `.md`, `.zip`, `.skill`); from chat; or a OneDrive folder | Yes, in an isolated environment | Microsoft lists 50 skills, `SKILL.md` ≤ 1 MB and 20 companion files totalling 10 MB; its upload guide separately lists 10 MB compressed, 50 MB uncompressed and 100 files per archive. Not on mobile |
-| **Word** | Observed in our tenant on 7 November 2026: Copilot → **Discover plugins → Add → Create manually / Record a skill**; not yet in public docs | Create manually (a form you paste into); record | Unknown | Unknown |
-| **Excel** | Yes | **+ → Choose plugins and skills**; OneDrive folder; `skill-builder`; record; upload | No new execution mechanism; only through existing Copilot in Excel tools. Office.js skills in developer preview | None published |
-| **PowerPoint** | Yes: personal, organization and Brand Kit skills | **+ → Choose skills**; **… → Manage plugins → Add** (create or upload); OneDrive folder; record. Admins deploy organization skills | Not documented, so treat scripts as reference | Zip takes `.md .txt .csv .json .xml .html .svg .py .js`; no PNG, PDF or nested zip |
+| **Cowork** | Yes; both organization packages observed under **Plugins → Cowork → Added** on 8 November 2026 | **Customize → Skills → Add** (guided, or upload `.md`, `.zip`, `.skill`); from chat; or a OneDrive folder | Yes, in an isolated environment | Microsoft lists 50 skills, `SKILL.md` ≤ 1 MB and 20 companion files totalling 10 MB; its upload guide separately lists 10 MB compressed, 50 MB uncompressed and 100 files per archive. Not on mobile |
+| **Word** | **Not yet in our tenant** on 8 November 2026: no skills listed, including organization skills. On 7 November we saw creation entry points; see below | Previously observed **Discover plugins → Add → Create manually / Record a skill**; execution untested | Unknown | Unknown |
+| **Excel** | Yes; both organization packages observed under **+ → Plugins** on 8 November 2026 | **+ → Choose plugins and skills**; OneDrive folder; `skill-builder`; record; upload | No new execution mechanism; only through existing Copilot in Excel tools. Office.js skills in developer preview | None published |
+| **PowerPoint** | Yes: personal, organization and Brand Kit skills; all three deployed organization skills listed on 8 November 2026 | **+ → Choose skills**; **… → Manage plugins → Add** (create or upload); OneDrive folder; record. Admins deploy organization skills | Not documented, so treat scripts as reference | Zip takes `.md .txt .csv .json .xml .html .svg .py .js`; no PNG, PDF or nested zip |
 | **SharePoint** | Yes, personal and site skills | Ask Copilot; **Settings → Site skills → Create or upload** | No custom code, no external systems | None published |
 | **Agent Builder** | Yes | Describe it, or upload a zip | Yes, sandboxed: no network, no package install, no authenticated calls | 8 skills per agent; zip ≤ 50 MB; file ≤ 25 MB; ≤ 350 files; not reusable across agents |
 | **Agents Toolkit / Work IQ Dev Tools** | Yes | `atk add skill`, `wiqd plugin add skill` (DA manifest 1.9) | Same sandbox | 8 skills; app package ≤ 10 MB |
@@ -162,17 +169,25 @@ Its body maps each slide's purpose to a sample slide, plus one rule we'd copy in
 
 **The problem.** Footer labels, alt text, contrast and number formats apply to every deck, and nobody remembers them.
 
-**The skill.** `nimbus-presentation-standards` is designed for admin deployment as a small package (details under Distribution). Its description draws a clear line against the Brand Kit: *"It does not choose colours or layouts; with a Brand Kit selected, the brand kit and its skills decide the look."*
-
-**Our proposed design pattern.** That line follows from one difference. A user must *select* a Brand Kit for each presentation (**+ → Select brand**). An organization skill, once deployed, is available to everyone in scope, with or without a brand, subject to their skill toggles. Availability does not guarantee invocation or enforcement. So:
-
-| Put it in an organization skill (available in scope) | Put it in the Brand Kit (selected) |
-|---|---|
-| Deck structure, accessibility (alt text, contrast), number and date formats, the confidentiality label | Template, colours, fonts, images, brand voice, brand-specific skills such as `nimbus-board-update` |
-
-A rule that must hold when nobody picks a brand belongs on the left.
+**The skill.** `nimbus-presentation-standards` is deployed as a small organization package and was visible in PowerPoint, Excel and Cowork on **8 November 2026** (details under Distribution). Its description draws a clear line against the Brand Kit: *"It does not choose colours or layouts; with a Brand Kit selected, the brand kit and its skills decide the look."*
 
 **The test.** On the output of the board test: the footer reads `Nimbus Telecom · Důvěrné · <date>`, alt text is added, and it returns a short list of fixes.
+
+### Brand Kit versus organization skill
+
+Our proposed design pattern combines the documented brand-selection flow with the organization-package visibility we observed on **8 November 2026**:
+
+| Question | Brand Kit and its brand skills | Organization skill |
+|---|---|---|
+| Activation | Applies only after explicit brand selection: **+ → Select brand** in PowerPoint; **`@brandkit`** is the documented Excel route | Always available to everyone in deployment scope in supporting apps, with or without a selected brand, subject to user toggles |
+| Invocation | Select the brand, then pick a brand skill or ask for matching work | Pick a skill explicitly or let Copilot invoke it automatically when its description fits |
+| Reach | People with access to the selected kit; custom kit-skill behaviour in Excel remains unconfirmed | Every app supporting plugin-level skills for an in-scope user; observed in PowerPoint, Excel and Cowork |
+| Admin targeting | Kit access controls who can select it; the user opts in per deck | Users and groups only; **no per-app targeting** in the manifest or `SKILL.md` |
+| Best fit | The look: templates, colours, fonts, images, brand voice and brand-specific skills | Company rules: structure, accessibility, number/date formats, labels and repeatable procedures |
+| User control | Select the intended brand for the current deck | Switch a skill off in **Manage plugins**; broad deployment does not make invocation mandatory |
+| What we have not proved | Excel **`@brandkit`** is not yet visible in our tenant; custom kit-skill and kit-template use there remain untested | Word has no skills yet in our tenant; listing elsewhere does not prove automatic use, execution or compliance |
+
+**The look → Brand Kit, opt-in per deck. Always-on company rules → organization skill, scoped narrowly.** "Always-on" describes availability, not guaranteed invocation or enforcement. The description steers automatic use; deployment decides who can reach the package. The [Brand Kit walkthrough](/copilot-brand-kit/#brand-kit-or-organization-skill) gives the shorter comparison in the setup flow.
 
 ### Excel: three skills in sequence
 
@@ -194,7 +209,9 @@ These are built to chain. Select each named skill in Excel’s **+ → Choose pl
 
 A notice period doesn't prove a right to terminate without cause, and a missing liability clause doesn't mean uncapped liability. A confident summary goes wrong exactly there, so the skill spells it out. It also says it isn't a legal opinion.
 
-Both are intended for Word, Chat or Cowork. In our tenant on **7 November 2026**, Word showed **Copilot → Discover plugins → Add → Create manually**, alongside **Record a skill**. This is a lab observation, not documented Word support. The form's field limits and attachment support are **not yet confirmed in our tenant**, so our paste-ready `SKILL.md` files each carry their own checklist and style.
+Both produce **Word documents** and are intended for Word, Chat or Cowork. We also deployed them together as **Nimbus Office Skills**, a skills-only organization package. On **8 November 2026**, both skills appeared in PowerPoint and the package appeared in Excel and Cowork. Their intended output did not restrict their app visibility.
+
+Word needs two precise, dated observations. On **7 November 2026**, we saw **Copilot → Discover plugins → Add → Create manually**, alongside **Record a skill**. On **8 November 2026**, Word showed **no skills at all in our tenant**, including no organization skills after this deployment. A creation entry point is not evidence that deployed skills are available. We expect rollout is still in progress, but have not confirmed the reason. Neither observation establishes successful execution. The form's field limits and attachment support remain unconfirmed, so our paste-ready `SKILL.md` files each carry their own checklist and style.
 
 ### SharePoint: a site skill
 
@@ -252,7 +269,7 @@ There's no single route. Choose by who needs the skill and who owns it.
 | **Brand Kit** | Copilot app → **Create → Brand kits → Skills → +** | Everyone with kit access after selecting the brand in PowerPoint; custom kit-skill invocation in Excel remains unconfirmed |
 | **Site skill** | **Settings → Site skills**; stored in `Agent Assets`; Edit creates, View runs; versions and **Copy to sites** | That site's members |
 | **Admin plugin** | Admin center → **Agents → Tools → Registry → Upload**, scope users, **Install** | Chat and Cowork |
-| **PowerPoint organization skill** | Admin center → **Agents → All agents → … → Add agent**, upload the package, scope users | PowerPoint users in scope, under **Organization** (details below) |
+| **Organization skill (skills-only plugin)** | Admin center → **Agents → All agents → … → Add agent**, upload a package with top-level `agentSkills`, scope users/groups | Supporting apps for users in scope: observed in PowerPoint, Excel and Cowork on 8 November; no skills yet in Word in our tenant |
 | **Declarative agent** | Up to 8 skills, shared with the agent | The agent's users, in Copilot and Office apps |
 | **Copilot Studio** | Download and re-upload, or solutions between environments | The agent's channels |
 | **Marketplace** | Partner Center, with certification | Public |
@@ -263,7 +280,7 @@ A plugin can be private, shared by its creator, published by your organization, 
 
 ### Our distribution matrix
 
-Where each skill goes, and its real status. "By script" means the files are in the tenant and read back identical. "One step" means a person must act in the UI. Everything still needs its live check.
+Where each skill goes, and its real status. "By script" means the files are in the tenant and read back identical. "One step" means a person must act in the UI. **✓ marks an intended destination**, not a successful run. "Listed", "Package listed" and "Package added" record the organization deployment observations of **8 November 2026**; runtime tests and the separate OneDrive discovery checks remain open.
 
 | Skill | PowerPoint | Excel | Word | Chat | Cowork | SharePoint | Route and status |
 |---|---|---|---|---|---|---|---|
@@ -271,13 +288,13 @@ Where each skill goes, and its real status. "By script" means the files are in t
 | `nimbus-data-slide`, `nimbus-voice-cs` | ✓ | | | | | | Nimbus: UI check pending; FiberMax: kit not yet created |
 | `fibermax-launch-update` | ✓ | | | | | | Brand Kit FiberMax: kit not yet created |
 | `sharpen-titles-cs` | ✓ | | | | | | OneDrive personal: create the folder, then copy |
-| `nimbus-presentation-standards` | ✓ | | | | | | Admin center, All agents: deployment result not yet confirmed (below) |
+| `nimbus-presentation-standards` | Listed | Package listed | Not yet | | Package added | | Organization package **Nimbus Presentation Standards** deployed; visibility observed below; execution untested |
 | `nimbus-czk-cleanup`, `nimbus-plan-vs-actual` | | ✓ | | upload | ✓ | | Excel OneDrive: one step. Cowork OneDrive: by script |
 | `nimbus-excel-brand` | | ✓ | | upload | ✓ | | Excel and Cowork as above; Brand Kit upload and Excel invocation unconfirmed |
-| `nimbus-contract-check`, `nimbus-meeting-minutes` | | | ✓ | ✓ | ✓ | | Word: paste into Create manually. Cowork OneDrive: by script. Admin package `nimbus-office-skills`: deployment result not yet confirmed |
+| `nimbus-contract-check`, `nimbus-meeting-minutes` | Listed | Package listed | Not yet | ✓ | Package added | | Organization package **Nimbus Office Skills** deployed; Word-output skills listed in PowerPoint too. Cowork OneDrive: by script; separate discovery check open |
 | `nimbus-contract-triage` | | | | | | Legal site only | Site skill: by script |
 
-### PowerPoint organization skills, end to end
+### Organization skills across apps
 
 **What the user sees.** In our tenant on **8 November 2026**, PowerPoint's Copilot pane → **…** → **Manage plugins** says it controls *"which skills Copilot can use automatically"*. It listed, top to bottom (screenshot above):
 
@@ -289,7 +306,7 @@ Where each skill goes, and its real status. "By script" means the files are in t
 
 Brand Kit skills come with the selected brand instead. To call a skill explicitly, users go to **+ → Choose skills**, where Microsoft says an organization skill appears only for users included in its deployment.
 
-**Deploying one** (Microsoft's article):
+**Deploying one** ([Microsoft's public procedure](https://support.microsoft.com/en-us/powerpoint/copilot/deploy-organization-skills-for-copilot-in-powerpoint)):
 
 1. Admin center → **Agents → All agents** → more actions → **Add agent**.
 2. On **Upload agent to publish**, choose the package zip and read the validation result. If it fails, fix the structure or manifest and upload again.
@@ -306,17 +323,37 @@ Brand Kit skills come with the selected brand instead. To call a skill explicitl
 }
 ```
 
-The article's own example disagrees with itself: its zip shows the skill folder at the root, next to `manifest.json`, while its manifest points to `./skills/<name>`. We build both, `nimbus-presentation-standards.zip` and `nimbus-presentation-standards-flat.zip`, and will report which one validates.
+The article's zip illustration puts the skill folder at the root, while its manifest points to `./skills/<name>`. Keep the actual archive layout and manifest paths consistent. Our deployment result below establishes package visibility; it does not compare the two archive layouts or establish which other package types each app accepts.
 
-**How PowerPoint decides what to show.** Microsoft doesn't document this, so this is our reading of the public docs, to be verified. There is no host field in the manifest or in `SKILL.md`; each app decides what it can use. For a skill to appear under **Organization** in PowerPoint, we believe all of these must hold:
+**Observed on 8 November 2026: the deployment result.** We deployed two **skills-only packages**, with top-level `agentSkills`, through **Microsoft 365 admin center → Agents → All agents → Add agent**. **Nimbus Presentation Standards** contains `nimbus-presentation-standards`. **Nimbus Office Skills** contains `nimbus-meeting-minutes` and `nimbus-contract-check`, whose outputs are Word documents. After propagation:
 
-- It is a plugin-level skill in `agentSkills`, not a skill inside a declarative agent.
-- The package is **Installed** in the admin center, not merely available.
-- The user is in its deployment scope, and **Agents → Settings → User access** allows them.
-- PowerPoint supports what the package contains. A Cowork plugin built around connectors or MCP servers may never show here.
-- The user hasn't switched **Organization** off in **Manage plugins**.
+| App | What we observed in our tenant |
+|---|---|
+| **PowerPoint** | **+ → skills list** showed all three skills with an **organization** badge: `nimbus-presentation-standards`, `nimbus-meeting-minutes`, `nimbus-contract-check`, alongside Dynamics 365 sales organization skills |
+| **Excel** | **+ → Plugins** listed **Nimbus Presentation Standards**, the **Nimbus Office Skills** plugin and **Dynamics 365 ERP** |
+| **Copilot Cowork** | Both packages appeared under **Plugins → Cowork → Added** |
+| **Word** | **No skills yet in our tenant**, including no organization skills. This differs from seeing creation entry points on 7 November; neither observation proves a skill run. Rollout is our expected explanation, not a confirmed cause |
 
-`metadata.tags` doesn't route either. Excel's developer docs call `tags: excel` a discovery hint, and warn that the skill may still be reached outside Excel.
+![PowerPoint's skills list shows nimbus-presentation-standards, nimbus-meeting-minutes and nimbus-contract-check with organization badges, below Dynamics 365 sales skills](/assets/copilot-skills/ppt-skills-org-list.png)
+
+![Excel's plus menu on the Plugins tab lists the Nimbus Office Skills plugin, Nimbus Presentation Standards and Dynamics 365 ERP](/assets/copilot-skills/excel-plugins-org-skills.png)
+
+The Excel screenshot truncates the Office package's descriptive text to "Nimbus meeting minutes and con…". It is the **Nimbus Office Skills** package. These are observations of availability, **not evidence that Copilot used the skills** or produced the expected Word documents.
+
+### No per-app targeting
+
+The practical finding from **8 November 2026** is that **there is no per-app targeting** for these organization skills. Neither the manifest nor `SKILL.md` has a host/app targeting field; admin scoping is by **users and groups only**. An installed organization skill is available in every app that supports plugin-level skills for the user in scope. Our Word-output skills appearing in PowerPoint and Excel make the consequence visible. Word's current absence is a tenant observation, not an app restriction we configured.
+
+The descriptions did not hide the Word skills from the PowerPoint picker. **Appearing in the picker is not the same as being used**: automatic use depends on the description matching the task. The description is the only app "targeting" you have for routing, and it is not a technical access boundary. Excel's [developer guidance](https://learn.microsoft.com/en-us/office/dev/add-ins/excel/excel-skills) even describes handling invocation outside Excel; a `metadata.tags` value or a custom `metadata.surface` label is not an app deployment filter.
+
+Our recommendation for admins:
+
+- **Publish organization skills deliberately and scope packages to groups.** Start with the people who need them.
+- **Split packages by audience, not by app.** A Word-output package still appears in other supporting apps.
+- **Write precise descriptions.** Name the intended app, required input, output and exclusions so the router has a clear match and can leave unrelated tasks alone.
+- **Use a clear naming prefix**, such as `nimbus-`, so users can recognize organization skills in a mixed list.
+- **Show users the off switch in Manage plugins.** They can switch a skill off; being deployed does not require automatic use.
+- **Test visibility and routing in every app before a wide rollout**, including prompts that should not trigger the skill. Repeat the Word check when skills become available there.
 
 **A skill is missing? Check in this order.**
 
@@ -324,13 +361,9 @@ The article's own example disagrees with itself: its zip shows the skill folder 
 2. **Is it Installed?** Check the deployment status, not just that the upload succeeded.
 3. **Is the user in scope?** Both the deployment's users and the tenant-wide **User access**.
 4. **Is Organization switched on** in the user's **Manage plugins**?
-5. **Is it the kind of package PowerPoint shows?** Skills only, not a connector-heavy plugin or an agent.
+5. **Does the app expose skills in this tenant yet?** Our Word check still showed none. Re-check rollout availability; a Word-output description does not restrict deployment to Word.
 
-> **Organization skill test: pending on 8 November 2026.** Package validation and visibility in the Office apps are **not yet confirmed in our tenant**.
->
-> **Planned check:** upload `nimbus-presentation-standards.zip` and `nimbus-office-skills.zip` to a limited test scope, inspect the validation result and **Agents → Tools**, then check PowerPoint's **Organization** folder and **+ → Choose skills**.
->
-> **Expected, not observed:** `nimbus-presentation-standards` in PowerPoint for an in-scope user. Whether the two Word-output skills in `nimbus-office-skills` appear in Word or Excel remains open.
+The observed result above covers two skills-only packages. It does not establish the behaviour of connector-heavy plugins or skills inside declarative agents. **Next test:** explicitly invoke each skill, then test both matching and unrelated prompts for automatic routing in every supporting app.
 
 ## Governance for admins
 
@@ -371,11 +404,11 @@ Before a skill moves up a tier, ask for an owner, a data classification, reviewe
 
 **In our own tenant:**
 
-1. Which organization package zip validates, and where each package shows up (the pending test above).
+1. Run the deployed organization skills and check automatic routing across apps; re-check Word, where no skills are available yet. Package visibility in PowerPoint, Excel and Cowork is now observed.
 2. Does Cowork list skills placed directly in its OneDrive folder, and **Site skills** a `SKILL.md` placed directly in `Agent Assets`?
 3. Can a site skill write library columns and read 137 files in one run?
-4. Word **Create manually**: field limits, attachments, and does the memo go into the open document?
-5. Once `brandkit` reaches our tenant (it hasn't yet): does it use `nimbus-excel-brand`, and does PowerPoint leave that skill alone?
+4. Once skills are available in Word, revisit **Create manually**: field limits, attachments, and does the memo go into the open document? We saw the creation entry points on 7 November, but no skills listed on 8 November.
+5. Once **`@brandkit`** reaches our tenant (still not visible on 8 November): does it use `nimbus-excel-brand`, and does PowerPoint leave that kit skill alone?
 6. Does the refusal hold when the signed-in account can reach the restricted file?
 
 We'll update this post with the results, failures included.
