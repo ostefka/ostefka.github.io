@@ -193,6 +193,11 @@ Pak ukaž návrh stránky a metadata a zeptej se zvlášť před zveřejněním.
 
 The publisher should propose **Školicí materiály** (document library), **Časté dotazy** and **Katalog školení** (lists), plus page properties. Review the schema in the next section and approve only the missing objects. If library creation fails, create it manually using the fallback below and tell Cowork to recheck.
 
+**Cowork asks before every write.** Each change on the site (one column, one list, the page) comes as an approval card from **SharePoint and OneDrive**, such as *Update list schema*, showing the exact name, type, choices and target site. Check it, then **Approve**. The arrow next to Approve offers *Always allow* for that action type: with 12+ columns it saves many clicks, so use it only for schema changes on your own hackathon site and never for publishing. Typing a new message while a card is open cancels the pending actions, so answer the card first.
+
+![Cowork approval card "Update list schema" for the Tema choice column, with Approve and the Always allow option](/assets/hackathon-healthtrainings/14-cowork-approval.webp)
+*👤 Participant — Cowork, Card 2: approval card before the first column is added (tenant and list id redacted).*
+
 Next inspect the full page draft and metadata. Approve content and publication together only when correct; otherwise request a correction. After writing, Cowork should reopen the page and FAQ items and report actual links and values. Open those links yourself.
 
 <!-- SHOT 06-publisher-approval: draft and metadata before publication, with explicit approval question; participant; Cowork Card 2. -->
