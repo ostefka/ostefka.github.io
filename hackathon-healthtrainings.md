@@ -198,6 +198,15 @@ The publisher should propose **Školicí materiály** (document library), **Čas
 ![Cowork approval card "Update list schema" for the Tema choice column, with Approve and the Always allow option](/assets/hackathon-healthtrainings/14-cowork-approval.webp)
 *👤 Participant — Cowork, Card 2: approval card before the first column is added (tenant and list id redacted).*
 
+File uploads use a similar card, *Upload file content*, with **Upload this and the rest**, **Upload only this file** or *Always allow*. Its target may read just `/` with "Some location names are unavailable": in our test that was the root of the **Školicí materiály** library, and the file landed there. Check the library afterwards.
+
+![Cowork approval card "Upload file content" for the derived Word handbook, with the upload options open](/assets/hackathon-healthtrainings/15-cowork-upload-approval.webp)
+*👤 Participant — Cowork, Card 2: approval before the derived Word file is uploaded to the library.*
+
+Metadata writes come as *Update list item?*, marked **Medium risk**, listing every value (Cílová role, Jazyk, Platné od, Revize do, Původní zdroj, Shrnutí …). This is the card to read carefully: dates, owner, and that *Nepoužito* names discarded files without their old numbers. Its *Always allow* option is **Call graph**, which covers any Microsoft Graph call Cowork makes, not just this one. Do not choose it; approve these one by one.
+
+<!-- SHOT 16-cowork-metadata-approval: Update list item? card (Medium risk) with metadata values; participant; Cowork Card 2. -->
+
 Next inspect the full page draft and metadata. Approve content and publication together only when correct; otherwise request a correction. After writing, Cowork should reopen the page and FAQ items and report actual links and values. Open those links yourself.
 
 <!-- SHOT 06-publisher-approval: draft and metadata before publication, with explicit approval question; participant; Cowork Card 2. -->
