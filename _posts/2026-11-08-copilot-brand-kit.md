@@ -26,15 +26,16 @@ permalink: /copilot-brand-kit/
 > Our kit accepted Word `.dotx` and Excel `.xltx` templates on **8 November 2026**. That proves upload
 > acceptance. Their use by Copilot remains unverified, and Excel's **`brandkit`** entry point was absent in our tenant.
 
-> **What this article is.** A practical enterprise setup guide based on public Microsoft documentation
-> and dated lab observations, last checked **9 November 2026**. Recommendations and verification tests
-> are identified separately from observed results. Menu labels and availability can differ during rollout.
+> **What this article is.** A practical enterprise setup guide based on public Microsoft documentation.
+> Observations and screenshots come from our lab tenant, last checked **9 November 2026**.
+> Recommendations and verification tests are identified separately from observed results. Menu labels and
+> availability can differ during rollout.
 
 Your company already has a logo, a visual identity and templates. The setup task is to make the approved
 versions available to Copilot, assign clear ownership and prove that an ordinary employee can use them.
 This guide follows that handoff from IT to the brand team to the user.
 
-The **9 November 2026** screenshots document our lab administrator/brand-manager sessions.
+The screenshots document administrator/brand-manager sessions.
 They do not verify access for a separately delegated manager or an ordinary employee.
 
 ## Who does what
@@ -94,7 +95,7 @@ applying to all users. On **Configure Settings**, search for **Brand Manager** a
 enter the group's address in **Security group email address** and select **Apply**. Review and publish the policy; confirm **Tenant** scope and
 priority **0**. Allow up to **24 hours** for policy changes.
 
-**Lab observation, 9 November 2026:** Cloud Policy at **config.office.com** required a separate sign-in
+In our tenant, Cloud Policy at **config.office.com** required a separate sign-in
 from the Microsoft 365 admin center. Open that portal with the appropriate Office Apps Administrator account.
 
 ![Elevated role for enterprise brand managers policy set to Enabled, with the Security group email address value replaced by a placeholder](/assets/copilot-brand-kit/cloud-policy-brand-managers.png)
@@ -171,7 +172,7 @@ ordinary readers should not acquire edit rights through another group.
 Together, the captures show the Visitors group's **Read** permission and the broad employee claim
 inside it. An ordinary pilot user's effective access still needs the check below.
 
-**Lab observation, 6 October 2026:** our private group-connected site blocked that broad visitor claim
+Our private group-connected site blocked that broad visitor claim
 until the administrator addressed the tenant setting `AllowEveryoneExceptExternalUsersClaimInPrivateSite`.
 If you encounter the same restriction, have the SharePoint admin assess the site and policy. A tenant-wide
 permission-setting change belongs with IT.
@@ -316,9 +317,9 @@ Open **Add images** to inspect the sources actually offered by the picker.
 
 *Admin/brand manager · Brand kits › selected kit › Images › Add images (web, 9 November 2026).*
 
-**Lab observation, 9 November 2026:** this picker showed **No library assets available**, although our
-SharePoint **Brand Images** organization asset library existed. This is a tenant observation; the cause
-was not established. The template picker below did expose the organization template library.
+In our tenant, this picker showed **No library assets available**, although our SharePoint **Brand Images**
+organization asset library existed. The cause was not established. The template picker below did expose
+the organization template library.
 
 ![Kit Icons page showing an icon set grid and Add icon set](/assets/copilot-brand-kit/kit-icons.jpg)
 
@@ -330,9 +331,8 @@ was not established. The template picker below did expose the organization templ
 
 A useful voice brief specifies audience, preferred register, sentence style, product naming and number/date
 formats. Include one approved example and a rule for missing information. Keep frequently changing product
-facts in their maintained source. **Lab observation, 8 November 2026:** our editor offered Templates,
-Colors, Images, Icons, Fonts, Logos, Brand Voice and Skills; there was no separate Brand Guidelines or Style
-section. Do not make setup depend on a guidelines PDF being automatically interpreted.
+facts in their maintained source. Our editor had no separate Brand Guidelines or Style section.
+Do not make setup depend on a guidelines PDF being automatically interpreted.
 
 ## Step 7 — 🎨 Brand manager: add templates and choose adherence
 
@@ -344,7 +344,7 @@ collection exposed `.potx`, `.dotx` and `.xltx` templates. Select an approved fi
 
 *Admin/brand manager · Brand kits › selected kit › Templates › Add template (web, 9 November 2026).*
 
-**Lab observation, 9 November 2026:** after selecting templates, **Save as brand templates** showed a
+After selecting templates, **Save as brand templates** showed a
 **Brand Kit** picker and optional **Tags**. The dialog said it would generate tags and a description
 after upload, with editing available later. Confirm the target kit before selecting **Add to Brand Kit**.
 
@@ -356,7 +356,7 @@ after upload, with editing available later. Confirm the target kit before select
 `presentation`, `executive`, `internal`, plus your working languages. Review generated descriptions for
 accuracy. We have not measured how tags affect template selection.
 
-**Lab observation, 8 November 2026:** the same kit accepted two Word `.dotx` files and an Excel `.xltx`,
+The same kit accepted two Word `.dotx` files and an Excel `.xltx`,
 displaying their app icons. This establishes acceptance only. We have no generated-output evidence that
 Word or Excel Copilot uses those kit templates. Keep their organization-library route available.
 
@@ -374,7 +374,6 @@ must reuse approved layouts; disabled, it may create layouts while using the bra
 *Admin/brand manager · Brand kits › selected kit › Templates › Strict brand adherence: On (web, 9 November 2026).*
 
 Microsoft documents automatic note steering with no additional setup in [Manage template settings](https://support.microsoft.com/en-us/powerpoint/copilot/manage-brand-kit-template-settings-in-powerpoint).
-**Lab observation, 8 November 2026:** no separate note-instructions toggle was visible in our kit.
 
 ## Step 8 — 🎨 Brand manager: attach the brand's skills
 
@@ -394,7 +393,7 @@ put the procedure in Instructions. The [skills setup guide](/copilot-skills/) co
 
 *Admin/brand manager · Brand kits › selected kit › Plugins › Skills › Add skill (web, 9 November 2026).*
 
-**Lab observation, 6 October 2026:** Brand Kit zip upload rejected `<skill-name>/SKILL.md` with
+In our tenant, Brand Kit zip upload rejected `<skill-name>/SKILL.md` with
 “This skill is missing a SKILL.md file.” Put **`SKILL.md` at the archive root**, with `references/` beside
 it, and package one skill per upload. PowerPoint's allowed companion types include Markdown, text, CSV,
 JSON, XML, HTML, SVG, Python and JavaScript; PNG, PDF and nested archives are not accepted on this route.
@@ -402,6 +401,8 @@ JSON, XML, HTML, SVG, Python and JavaScript; PNG, PDF and nested archives are no
 Keep brand-specific behaviour in the kit. An organization skill is available without brand selection,
 within its deployment scope and subject to user controls. This suits shared company procedures, but
 availability does not guarantee invocation or enforcement. Organization deployment has **no per-app targeting**.
+Publish organization skills/plugins in **Microsoft 365 admin center › Agents › Tools**; see the
+[skills setup guide](/copilot-skills/) for details.
 
 **Observed, 9 November 2026:** before selecting a brand, PowerPoint listed `nimbus-presentation-standards`,
 `nimbus-meeting-minutes` and `nimbus-contract-check` with an **organization** badge, alongside Dynamics 365
