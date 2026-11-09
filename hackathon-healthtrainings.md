@@ -209,10 +209,10 @@ Metadata writes come as *Update list item?*, marked **Medium risk**, listing eve
 
 Next inspect the full page draft and metadata. Approve content and publication together only when correct; otherwise request a correction. After writing, Cowork should reopen the page and FAQ items and report actual links and values. Open those links yourself.
 
-**You publish the page — Cowork cannot.** Cowork saves the new page as a **draft (version 0.1) checked out to you**; nobody else, and no agent, can see it yet. Open the link Cowork gives you, check the content and the page properties (Téma, Stav, Platné od, Revize do, Vlastník obsahu, Původní zdroj), then click **Publish** (*Publikovat*). In our test the publish step also posted the page as **News** ("Your post has been successfully amplified"). For a reference topic page you usually do not want it in the news feed, so check the publish options before you confirm. Then tell Cowork it is published so it can check version 1.0.
+**You publish the page — Cowork cannot.** Cowork saves the new page as a **draft (version 0.1) checked out to you**; nobody else, and no agent, can see it yet. Open the link Cowork gives you, check the content and the page properties (Téma, Stav, Platné od, Revize do, Vlastník obsahu, Původní zdroj), then click **Publish** (*Publikovat*). The publish panel also lets you post the page as **News**, to announce it to the site's readers. That is your choice; a reference page does not need it. Then tell Cowork it is published so it can check version 1.0.
 
 ![Published topic page "Senná rýma a alergie" on the HealthTrainings site, with the publish confirmation panel](/assets/hackathon-healthtrainings/17-page-published.webp)
-*👤 Participant — SharePoint: the topic page after Publish; the side panel confirms it was also posted as News.*
+*👤 Participant — SharePoint: the topic page after Publish; here the author also chose to post it as News.*
 
 <!-- SHOT 06-publisher-approval: draft and metadata before publication, with explicit approval question; participant; Cowork Card 2. -->
 *Screenshot coming soon.*
