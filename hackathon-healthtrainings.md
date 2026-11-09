@@ -109,7 +109,7 @@ Copy the site root address from the browser, without a page or library suffix. T
 Paste this context once in that conversation, replacing both placeholders. If you added optional messages, change the final sentence accordingly.
 
 ```text
-Použij dovednost zl-training-finder.
+/zl-training-finder
 Pracujeme na fiktivním scénáři Lékárny Zelený list. Cílový web pro schválené znalosti je <URL webu>.
 Zdrojová složka týmu je <URL zdrojové složky>; moje další podklady jsou v OneDrivu ve složkách Školení a Stažené.
 Složky Kolegové nahrazují soukromé OneDrivy fiktivních autorů. Přílohy z pošty jsou pro toto cvičení soubory týmu.
@@ -123,11 +123,10 @@ Zatím jsem nenasadil/a nepovinnou poštu ani zprávy Teams. Chybějící zpráv
 
 ### How to make sure a skill is used
 
-1. **Name it at the start of the prompt:** `Použij dovednost zl-training-finder.` for discovery, or `Použij dovednost zl-training-publisher.` for publication. Every Cowork exercise below starts this way; for combined tasks, check both stages.
-2. **Check the activity/trace:** look for the skill-loading message and the intended skill in the side panel's **Skills** chips. [Microsoft's Use Cowork guide](https://learn.microsoft.com/en-us/copilot/cowork/use-cowork#cowork-skills) documents those loading messages and chips. A plausible answer alone does not prove the skill loaded.
-3. **If it did not load**, replace `<name>` in `Načti dovednost <name> a postupuj podle ní` with the exact skill name, send it, then repeat the exercise prompt and check again. For Card 1: `Načti dovednost zl-training-finder a postupuj podle ní`.
-
-This is our exercise procedure for requesting and checking a skill, not a guarantee that naming it forces activation. Keep skill configuration under `Documents/Cowork/skills/` out of training-source results, even when search returns it.
+1. **Select it with `/`:** in the Cowork prompt box type `/`, pick the skill from the list (`zl-training-finder` for discovery, `zl-training-publisher` for publication), then write the task. Every Cowork exercise below starts this way.
+2. **Check it loaded:** look for the skill-loading message and the skill in the side panel's **Skills** chips. [Microsoft's Use Cowork guide](https://learn.microsoft.com/en-us/copilot/cowork/use-cowork#cowork-skills) documents those messages and chips. A plausible answer alone does not prove the skill ran.
+3. **Find, then publish:** cards that find and publish start with `/zl-training-finder`. When you have checked the source table, continue in the same conversation with `/zl-training-publisher` and the publishing request.
+4. **After updating a skill**, start a new conversation so Cowork loads the new version.
 
 <!-- SHOT 13-skill-loaded: Cowork trace showing the skill loaded -->
 *Screenshot coming soon — participant; activity/trace and Skills chip showing zl-training-finder loaded before the Card 1 source search.*
@@ -145,9 +144,9 @@ When the finder asks whether to continue publishing, continue only when its tabl
 **Goal:** find the sources, open their contents and distinguish the current handbook from a renamed duplicate and a withdrawn version.
 
 ```text
-Použij dovednost zl-training-finder.
+/zl-training-finder
 Najdi všechny materiály k tématu „Senná rýma a alergie“ v mé poště, v Teams, v OneDrivu a na SharePointu.
-Ke každému napiš, kde leží, jakou má verzi a datum, a jestli je aktuální, zastaralý, duplicitní, koncept, nebo mimo téma.
+U každého uveď, kde leží, jakou má verzi a datum a jestli je aktuální, zastaralý, duplicitní, nebo jde o koncept.
 Prohledej i zdrojovou složku týmu včetně Kolegové a Přílohy z pošty. Zatím nic nepublikuj na <URL webu>.
 ```
 
@@ -184,7 +183,7 @@ The discovery comparison must identify **14 days versus 4 weeks**, and campaign 
 **Goal:** turn settled sources into one reviewed topic page, with provenance and metadata. Stay in the same conversation.
 
 ```text
-Použij dovednost zl-training-publisher.
+/zl-training-publisher
 Publikuj téma Senná rýma a alergie na web Health Trainings (<URL webu>) jako stránku podle šablony a nastav všechna metadata.
 Nejprve ověř strukturu webu podle zl-training-publisher. Ukaž chybějící objekty a zeptej se před jejich vytvořením.
 Pak ukaž návrh stránky a metadata a zeptej se zvlášť před zveřejněním. Koncepty a zastaralé údaje na web nesmí.
@@ -259,7 +258,7 @@ Cowork's lists/columns/pages route can still help after you create the library y
 **Goal:** combine slides and FAQ, with optional mail confirmation, without mistaking corroboration for an exclusive source.
 
 ```text
-Použij dovednost zl-training-finder. Potom použij dovednost zl-training-publisher.
+/zl-training-finder
 Najdi materiály k tématu „Nachlazení a chřipka“ a pak je publikuj na Health Trainings (<URL webu>).
 Nejprve ukaž tabulku zdrojů a rozpory. Až ji zkontroluji, připrav návrh podle zl-training-publisher a před zveřejněním se zeptej.
 ```
@@ -286,7 +285,7 @@ Published guidance includes **fever above 38.5 °C lasting more than 3 days**, b
 **Goal:** publish the approved sleep module while refusing a newer draft service proposal.
 
 ```text
-Použij dovednost zl-training-finder. Potom použij dovednost zl-training-publisher.
+/zl-training-finder
 Najdi podklady a připrav téma Problémy se spánkem pro web <URL webu>.
 Ukaž návrh a metadata před publikací.
 Koncepty ani jejich obsah nesmí na web, do FAQ, metadat ani příloh. Před zveřejněním se zeptej.
@@ -310,7 +309,7 @@ Published text says **more than 3 weeks**, **Spánkový dotazník ZL-7 with 7 qu
 **Goal:** identify the current heartburn checklist even though the topic folder contains the withdrawn version.
 
 ```text
-Použij dovednost zl-training-finder.
+/zl-training-finder
 Co máme k pálení žáhy a která verze checklistu platí?
 Prohledej i Kolegové a můj OneDrive/Stažené. Ukaž verzi a datum zevnitř souborů, duplikáty a důvod výběru.
 Zatím nic nepublikuj na <URL webu>.
@@ -336,7 +335,7 @@ The current persistence threshold is **more than 2 weeks despite self-care**; th
 **Goal:** use the current weight-management handbook rather than the old presentation.
 
 ```text
-Použij dovednost zl-training-finder.
+/zl-training-finder
 Najdi materiály k programu Lehčí krok a řekni, jak dlouho program trvá a kolik má konzultací.
 Otevři i Prezentace_final_FINAL.pptx a anglické podklady. Rozhodnutí dolož zdroji.
 Zatím nic nepublikuj na <URL webu>.
@@ -360,7 +359,7 @@ Answer: **12 weeks and 4 consultations with body-composition measurement**. The 
 **Goal:** distinguish the raw current catalogue, its old copy and the attendance tracker, then publish only active courses with honest missing values.
 
 ```text
-Použij dovednost zl-training-finder. Potom použij dovednost zl-training-publisher.
+/zl-training-finder
 Najdi katalog školení a evidenci docházky. Která verze katalogu platí a jaké mají datové chyby?
 Porovnej zdroje a publikuj vyčištěný katalog do seznamu Katalog školení na <URL webu>.
 Nejprve ukaž plán čištění a navržené řádky. Publikuj pouze Aktivní; Návrh ani Archiv na znalostní web nesmí.
@@ -592,7 +591,7 @@ A “sources only” instruction is an acceptance target to test, not a guarante
 | Symptom | Who acts | Next step |
 |---|---|---|
 | Cowork missing or blocked | 👤 IT admin | Check licence, a spending policy selecting Cowork and participant scope; old Frontier agent settings no longer grant access. [Access controls](https://learn.microsoft.com/en-us/copilot/cowork/cowork-access) |
-| Skill installed but not used | 👤 Participant | Follow [How to make sure a skill is used](#how-to-make-sure-a-skill-is-used): name it at the prompt start, inspect activity/trace and Skills chips, then request loading and repeat if needed. Check **Customize › Skills** for disabled/duplicate/stale copies; after updating, start a new conversation. Same-name imports can create numbered copies. [Customize](https://learn.microsoft.com/en-us/copilot/cowork/cowork-customize) |
+| Skill installed but not used | 👤 Participant | Follow [How to make sure a skill is used](#how-to-make-sure-a-skill-is-used): select it with `/` at the prompt start and check the Skills chips. Check **Customize › Skills** for disabled/duplicate/stale copies; after updating, start a new conversation. Same-name imports can create numbered copies. [Customize](https://learn.microsoft.com/en-us/copilot/cowork/cowork-customize) |
 | Upload says SKILL.md missing | 👤 Participant | Upload `skills/zl-training-finder.zip` or `zl-training-publisher.zip`, not the outer pack or a ZIP with an extra containing folder |
 | Cowork cannot create the document library | 👤 Participant/site owner | Create **SkoliciMaterialy → Školicí materiály** manually and add the twelve columns in Card 2. Let Cowork recheck and handle supported lists/columns/pages. Inspect the actual objects; a claimed write is not proof |
 | Missing or incomplete source hits | 👤 Participant | Open the file through its real location; verify team membership/OneDrive permissions, both source scopes and the mapped colleague folders. Wait for search indexing, try several filename/topic terms, or attach the relevant cloud files to continue. Record an assisted discovery result rather than a full search pass |
