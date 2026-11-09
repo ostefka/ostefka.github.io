@@ -124,12 +124,12 @@ Zatím jsem nenasadil/a nepovinnou poštu ani zprávy Teams. Chybějící zpráv
 ### How to make sure a skill is used
 
 1. **Select it with `/`:** in the Cowork prompt box type `/`, pick the skill from the list (`zl-training-finder` for discovery, `zl-training-publisher` for publication), then write the task. Every Cowork exercise below starts this way.
-2. **Check it loaded:** look for the skill-loading message and the skill in the side panel's **Skills** chips. [Microsoft's Use Cowork guide](https://learn.microsoft.com/en-us/copilot/cowork/use-cowork#cowork-skills) documents those messages and chips. A plausible answer alone does not prove the skill ran.
+2. **Check it loaded:** open the **Workspace** panel: the skill appears as a chip under **Plugins** (next to Connectors). [Microsoft's Use Cowork guide](https://learn.microsoft.com/en-us/copilot/cowork/use-cowork#cowork-skills) documents those messages and chips. A plausible answer alone does not prove the skill ran.
 3. **Find, then publish:** cards that find and publish start with `/zl-training-finder`. When you have checked the source table, continue in the same conversation with `/zl-training-publisher` and the publishing request.
 4. **After updating a skill**, start a new conversation so Cowork loads the new version.
 
-<!-- SHOT 13-skill-loaded: Cowork trace showing the skill loaded -->
-*Screenshot coming soon — participant; activity/trace and Skills chip showing zl-training-finder loaded before the Card 1 source search.*
+![Cowork prompt starting with /zl-training-finder; the Workspace panel lists zl-training-finder under Plugins](/assets/hackathon-healthtrainings/13-skill-loaded.webp)
+*👤 Participant — Cowork: the prompt starts with `/zl-training-finder`; Workspace › Plugins confirms the skill was used.*
 
 ## 4. Act 1 — Cowork exercises, cards 1–7
 
@@ -591,7 +591,7 @@ A “sources only” instruction is an acceptance target to test, not a guarante
 | Symptom | Who acts | Next step |
 |---|---|---|
 | Cowork missing or blocked | 👤 IT admin | Check licence, a spending policy selecting Cowork and participant scope; old Frontier agent settings no longer grant access. [Access controls](https://learn.microsoft.com/en-us/copilot/cowork/cowork-access) |
-| Skill installed but not used | 👤 Participant | Follow [How to make sure a skill is used](#how-to-make-sure-a-skill-is-used): select it with `/` at the prompt start and check the Skills chips. Check **Customize › Skills** for disabled/duplicate/stale copies; after updating, start a new conversation. Same-name imports can create numbered copies. [Customize](https://learn.microsoft.com/en-us/copilot/cowork/cowork-customize) |
+| Skill installed but not used | 👤 Participant | Follow [How to make sure a skill is used](#how-to-make-sure-a-skill-is-used): select it with `/` at the prompt start and check Workspace › Plugins. Check **Customize › Skills** for disabled/duplicate/stale copies; after updating, start a new conversation. Same-name imports can create numbered copies. [Customize](https://learn.microsoft.com/en-us/copilot/cowork/cowork-customize) |
 | Upload says SKILL.md missing | 👤 Participant | Upload `skills/zl-training-finder.zip` or `zl-training-publisher.zip`, not the outer pack or a ZIP with an extra containing folder |
 | Cowork cannot create the document library | 👤 Participant/site owner | Create **SkoliciMaterialy → Školicí materiály** manually and add the twelve columns in Card 2. Let Cowork recheck and handle supported lists/columns/pages. Inspect the actual objects; a claimed write is not proof |
 | Missing or incomplete source hits | 👤 Participant | Open the file through its real location; verify team membership/OneDrive permissions, both source scopes and the mapped colleague folders. Wait for search indexing, try several filename/topic terms, or attach the relevant cloud files to continue. Record an assisted discovery result rather than a full search pass |
