@@ -45,7 +45,7 @@ Complete this with a representative participant account before people arrive. Pa
 | SharePoint Copilot | Verify Copilot in SharePoint and autofill are available on the exercise site. Everyday features are included with the Copilot licence without preview opt-in | Participant sees the library's Copilot/autofill controls. [Get started](https://learn.microsoft.com/en-us/sharepoint/copilot-in-sharepoint-get-started) |
 | Advanced Autofill, if wanted | Prepare the separate SharePoint advanced-work spending policy and credits. A site admin enables **Settings › Site AI › Share credits for advanced autofill columns** using their own credits | Advanced processing uses Copilot Credits; ordinary new-file autofill is covered by the documented Copilot benefit. This exercise does not require choosing the older Syntex Azure pay-as-you-go route. [Autofill and billing](https://learn.microsoft.com/en-us/sharepoint/copilot-in-sharepoint-create-autofill-columns) |
 | Clean destination site | Permit self-service site creation, or pre-create **one private site per team**, named `HealthTrainings-<team>`. Give the team's trainers owner/edit rights; prepare a reader account for later | Participants can open their own site and create/edit content. [Manage site creation](https://learn.microsoft.com/en-us/sharepoint/manage-site-creation), [admin site creation](https://learn.microsoft.com/en-us/sharepoint/create-site-collection) |
-| Separate source team | Permit team creation, or pre-create one Teams team per hackathon team, e.g. **Školitelé Zelený list – <team>**. Add all teammates and permit file uploads | The default standard channel's files open for everyone. Group/team creation policy is separate from SharePoint's Create site switch. [Manage Microsoft 365 group creation](https://learn.microsoft.com/en-us/microsoft-365/solutions/manage-creation-of-groups) |
+| Separate source team | Permit team creation, or pre-create one Teams team per hackathon team, e.g. `Školitelé Zelený list – <team>`. Add all teammates and permit file uploads | The default standard channel's files open for everyone. Group/team creation policy is separate from SharePoint's Create site switch. [Manage Microsoft 365 group creation](https://learn.microsoft.com/en-us/microsoft-365/solutions/manage-creation-of-groups) |
 | Search and reader readiness | Check normal source access and site search. Review any Restricted Content Discovery setting that would hide the exercise site from Copilot | Open a source as the participant and a published page as the reader. [Restricted Content Discovery](https://learn.microsoft.com/en-us/sharepoint/restricted-content-discovery) |
 
 **IT hands over:** the source team, the clean `HealthTrainings-<team>` site or permission to create it, and a successful Cowork/skill/autofill preflight. **Participants do:** upload fixtures, install personal skills, review outputs, approve publication, configure column prompts and score the results. Optional Code and Copilot Studio access are separate preparations; they need not block acts 1–2.
@@ -227,6 +227,8 @@ The following are also part of the contract; ask Cowork to create what it can, t
 | **Katalog školení**, `Lists/KatalogSkoleni` | Title = course title; `KurzID` = text; `Tema` = topic Choice; `CilovaRole` = multiple Choice as above; `DelkaMin` = number; `Format` = Choice Prezenčně/E-learning/Webinář; `VlastnikObsahu` = text; `PosledniRevize` = date; `Stav` = Choice Aktivní/Návrh/Archiv |
 | **Site Pages** topic properties | `Tema` = topic Choice; `Stav` = Schváleno/Ke schválení/Archiv Choice; `PlatneOd`, `RevizeDo` = dates; `VlastnikObsahu` = text; `PuvodniZdroj` = multiple lines |
 
+For the manual Site Pages fallback, open **Settings › Site contents › Site Pages** and use **Add column** for the six properties above, creating each under its internal name first, then renaming its display label.
+
 **Topic page headings, in order:** Shrnutí → Na co se klienta zeptat → Volně prodejné možnosti podle skupiny účinných látek → Varovné signály — kdy doporučit lékaře → Doplňkový prodej a služby → Časté dotazy → Zdroje a platnost.
 
 Footer on every published topic: **Fiktivní školicí materiál pro demo — nejde o odbornou zdravotní radu.**
@@ -364,6 +366,17 @@ Cowork should compare the workbooks, flag issues and propose a normalized list. 
 Four relevant workbooks, with no extra mail/Teams items for this topic. Do not classify `Dovolena-2026-plan.xlsx` or `Inventura-postup-2025.docx` as training knowledge.
 
 The raw XL-01 has **16 rows: 14 Aktivní, KUR-11 Archiv, KUR-12 Návrh**. The destination list has **14 active courses**, with neither KUR-11 nor KUR-12. Normalize synonyms to the nine exact topic values; use one date format. Leave owners empty for **KUR-04, KUR-09, KUR-14, KUR-16** and report them. A topic's document author does not establish ownership of its course.
+
+Include these topic mappings when cleaning the catalogue:
+
+| Course | Source topic → destination Téma |
+|---|---|
+| KUR-08 | Kožní problémy → Akné a péče o ekzém |
+| KUR-09 | Cestování → Cestovní lékárnička a kinetóza |
+| KUR-15 | GDPR → Obecné |
+| KUR-16 | Vitamíny → Obecné |
+
+Keep KUR-15 and KUR-16 among the 14 active rows: preserve Alan Steiner as KUR-15's owner and leave KUR-16's owner empty.
 
 XL-03 deliberately contains a duplicated row, course-name variants, mixed dates and missing test results. Compare the local `checks/data-quality.csv`; do not silently invent results or attendance. **Fail:** a draft/archive course reaches the site, missing owners are guessed, the March catalogue is chosen, or the raw workbook is uploaded as reader knowledge.
 
