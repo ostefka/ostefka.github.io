@@ -17,6 +17,7 @@ permalink: /copilot-brand-kit/
 > **TL;DR** — IT enables brand-manager access and the SharePoint asset libraries. Marketing or
 > communications prepares the approved materials, configures the kit and publishes it. Users select
 > the brand in PowerPoint, then review the generated content.
+> Brand Kit builds on SharePoint's existing organization assets libraries; check for one and reuse it.
 >
 > Start with your existing brand materials. Spend the preparation effort on a representative
 > PowerPoint template, sample slides and speaker notes. Choose strict adherence deliberately for
@@ -136,8 +137,18 @@ font names, voice text, template versions and skills. It makes review possible b
 
 ## Step 3 — 👤 Admin: prepare the SharePoint libraries
 
-Use an existing suitable site or provision a dedicated one. Organization asset libraries must reside on
-the same site. Separate images and templates because their registration types differ.
+The **organization assets library** is an older, existing SharePoint concept: image and Office-template
+libraries registered with **`Add-SPOOrgAssetsLibrary`**. Many organisations may already have these feeding
+Office's template and image pickers. **Brand Kit builds on top of this foundation**, selecting approved
+templates and images from the libraries; it does not require a fresh asset collection. See Microsoft's
+[organization-assets guide](https://learn.microsoft.com/en-us/sharepoint/organization-assets-library) and
+[Copilot asset-library guidance](https://learn.microsoft.com/en-us/copilot/implement/configure-brand-kit-governance-organizational-assets).
+
+**👤 Admin:** Before creating anything, run **`Get-SPOOrgAssetsLibrary`** in the connected SharePoint admin
+session and check with the existing library owner. Reuse suitable registered libraries; create only what
+is missing. Use their existing site, or provision a dedicated one if there are no organization asset
+libraries yet. All organization asset libraries must reside on the same site. Separate images and templates
+because their registration types differ.
 
 | Suggested library | Registration type | Content |
 |---|---|---|
@@ -183,12 +194,12 @@ The lab's **Site contents** view shows **Brand Assets** alongside the separate *
 *Admin/brand manager · SharePoint brand site › Site contents › Brand Images (web, 9 November 2026).*
 
 **👤 Admin:** Connect using the SharePoint Online Management Shell as a SharePoint Administrator.
-Register each library with **`Add-SPOOrgAssetsLibrary`**, specifying the type in the table. Use
+For any library not already registered, use **`Add-SPOOrgAssetsLibrary`**, specifying the type in the table. Use
 **`Get-SPOOrgAssetsLibrary`** to check the result. The registration enables a CDN; follow your organization's
 approval process for that configuration. A thumbnail, if supplied, must be on the same site.
 Microsoft provides the command parameters in [Create an organization assets library](https://learn.microsoft.com/en-us/sharepoint/organization-assets-library).
 
-In the connected admin session, use your approved library addresses:
+For missing registrations only, use your approved library addresses in the connected admin session:
 
 ```powershell
 $imageLibraryUrl = Read-Host "Approved image library address"
@@ -209,14 +220,26 @@ Copilot relies primarily on **sample slides**, then on layouts. A master contain
 two examples gives it little to learn from. Microsoft's [template preparation guide](https://support.microsoft.com/en-us/powerpoint/copilot/keep-your-presentation-on-brand-with-copilot)
 explains the structure.
 
-| Check | What to prepare |
-|---|---|
-| Representative samples | Cover, agenda, section, light/medium/dense content, chart, table, image, timeline, summary and next steps; add other types your users need |
-| Theme | Approved theme colours and heading/body fonts, used consistently |
-| Placeholders | Real title/content/image placeholders; inspect the layouts rather than judging by appearance alone |
-| Content | Approved generic examples; remove old personal details, commercial figures and obsolete claims |
-| Notes | Short instructions for the specific sample's purpose, density and content rules |
-| Accessibility | Readable type, approved contrast, useful reading order and accessible chart conventions |
+| Recommendation | Why | Check |
+|---|---|---|
+| Prioritise finished sample slides | Copilot learns from examples before masters/layouts. [Sample guidance](https://support.microsoft.com/en-us/powerpoint/copilot/keep-your-presentation-on-brand-with-copilot) | Include title, agenda, section, content with text/icons/images, data with charts/tables/statistics, timeline, process, quote, Q&A, summary and next steps; adapt to your use cases. |
+| Demonstrate variety | Examples teach density, imagery and data presentation. [Sample guidance](https://support.microsoft.com/en-us/powerpoint/copilot/keep-your-presentation-on-brand-with-copilot) | Show light, medium and heavy text density, image treatments and data styles; use complete slides instead of icon libraries, and keep guidance outside the sample content. |
+| Use editable content | Copilot needs objects it can change. [Assessment guidance](https://support.microsoft.com/en-us/powerpoint/copilot/build-templates-that-work-well-with-copilot) | Replace embedded objects and pictures of tables/charts with native PowerPoint content; unlock locked groups. |
+| Define the theme | Consistent theme settings carry branding into generated slides. [Assessment guidance](https://support.microsoft.com/en-us/powerpoint/copilot/build-templates-that-work-well-with-copilot) | Set a full colour palette and Heading/Body fonts; apply them across masters, layouts and samples instead of manual formatting. |
+| Use real placeholders | Type, position and size guide placement; placeholder prompt text is not instructions. [Placeholder guidance](https://support.microsoft.com/en-us/powerpoint/copilot/keep-your-presentation-on-brand-with-copilot) | Use Title, Body, Picture, Chart, Table and SmartArt as appropriate. Avoid overlaps; fit text before upload—Copilot does not shrink it. [Assessment guidance](https://support.microsoft.com/en-us/powerpoint/copilot/build-templates-that-work-well-with-copilot) |
+| Add per-slide speaker-note guidance | Notes steer slide selection and treatment automatically. [Template settings](https://support.microsoft.com/en-us/powerpoint/copilot/manage-brand-kit-template-settings-in-powerpoint) | State each sample's purpose and rules, such as “Always include this cover slide” or “Executive audience, keep it high-level.” |
+| Save in desktop PowerPoint | Web-saved files can omit design details. [Assessment guidance](https://support.microsoft.com/en-us/powerpoint/copilot/build-templates-that-work-well-with-copilot) | Save `.pptx`/`.potx` in Windows or Mac; macro-enabled, password-protected and legacy `.ppt` files are unsupported. |
+| Use Template assessment for acceptance | Upload automatically checks compatibility; saving is not a pass. [Assessment guidance](https://support.microsoft.com/en-us/powerpoint/copilot/build-templates-that-work-well-with-copilot) | Review findings, fix issues, upload and assess again. Use Copy results with the repair prompt below. |
+| Enable strict brand adherence where required | It limits generation to approved layouts. [Template settings](https://support.microsoft.com/en-us/powerpoint/copilot/manage-brand-kit-template-settings-in-powerpoint) | Turn it On for customer-facing or regulated decks; verify the generated layouts in Step 10. |
+
+**Content:** Approved generic examples; remove old personal details, commercial figures and obsolete claims.
+**Accessibility:** Readable type, approved contrast, useful reading order and accessible chart conventions.
+
+For assessment findings, select **Copy results**, open the template in PowerPoint and ask Copilot:
+“Resolve these template-check findings. Preserve the current design and number of slides:” followed by
+the copied report. Review the changes, save, upload and assess again; the checker recommends fixes and
+does not modify the file itself. Microsoft's [assessment guide](https://support.microsoft.com/en-us/powerpoint/copilot/build-templates-that-work-well-with-copilot)
+documents this repair workflow.
 
 **🎨 Brand manager:** Put instructions in **speaker notes**, rather than in placeholder sample text.
 For example: keep one message on a content slide; preserve the source under a chart; leave an unknown
@@ -428,14 +451,6 @@ status is also visible on the Manage Brand Kits page above.
 
 *Admin/brand manager · Brand kits › selected kit › ⋯ (web, 9 November 2026).*
 
-**Lab observation, 9 November 2026:** the official kit's **Share** dialog showed **Share with everyone
-in my organization — Unavailable**, pending confirmation of the saved policy. **Try again** did not
-resolve it at that moment. We recorded this as a transient state, not a general sharing restriction.
-
-![Official kit Share dialog with organization sharing Unavailable until the saved policy is confirmed](/assets/copilot-brand-kit/kit-share-dialog.png)
-
-*Admin/brand manager · Brand kits › selected official kit › Share (web, 9 November 2026).*
-
 The current guide describes draft/published revisions, while the older template-settings guide says its
 toggle saves automatically. Check what viewers actually receive in your tenant. Do not assume that sharing
 an editor link publishes changes. Record the approved revision and repeat the pilot after updates.
@@ -469,9 +484,38 @@ prove that an ordinary user can select the kit in PowerPoint or that Word/Excel 
 
 *Admin/brand manager · Copilot app › Create › Browse brand templates (web, 9 November 2026).*
 
-Use a small synthetic source: “Create five slides about the service review. Availability was 99.7%;
-target was 99.9%. Include a summary and next steps. Use only the supplied figures.” Inspect the deck,
-including layouts and notes, rather than accepting Copilot's claim that it followed the brand.
+**🎨 Brand manager: run this acceptance test with an ordinary pilot user.** Keep the approved template
+and its sample-slide speaker notes open for comparison. The [documented brand-selection sequence](https://support.microsoft.com/en-us/powerpoint/copilot/manage-brand-kit-template-settings-in-powerpoint)
+is the starting point:
+
+1. In **PowerPoint desktop**, open a new presentation, then **Copilot → + → Select brand → choose the
+   published kit**. Confirm that its brand chip appears in the prompt box.
+2. Paste this prompt and let Copilot generate the deck:
+
+   > Create a short presentation for a fictional service review: cover, results, risks, summary and next
+   > steps. Availability was 99.7%; the target was 99.9%. There were 12 incidents: 9 resolved and 3 still
+   > open. Include a results table. Use these figures exactly; do not round them or invent additional
+   > metrics. Use the selected Brand Kit's template and follow its sample-slide speaker notes.
+
+   The figures are made up so you can check every number and detect whether Copilot invented or rounded any.
+3. **Check the template and layouts.** Compare the deck with the approved template. Inspect each slide's
+   **Home → Layout** selection and, where needed, **View → Slide Master**. Confirm the kit's template and
+   recognisable approved layouts were used, rather than a generic Designer deck; record any new layouts
+   permitted by the current adherence setting.
+4. **Check colours, fonts and logos.** Compare the theme's colour values and heading/body fonts with the
+   approved template. Check logo variant, placement, size and clear space on every applicable slide.
+5. **Check the figures.** Inspect all slide text, tables, charts and notes: availability **99.7%**, target
+   **99.9%**, incidents **12**, resolved **9**, open **3**. Pass only if these values are exact and no extra
+   metrics were invented.
+6. **Check speaker-note guidance.** Compare the output with the rules in the template's sample-slide
+   notes: for example, a required cover is present, an executive slide stays high-level, protected brand
+   elements remain intact and any specified slide order is followed. Inspect the generated notes too;
+   Copilot's claim that it followed the rules is not evidence.
+7. **Repeat with Strict brand adherence On.** As the brand manager, open the kit's **Templates** section,
+   turn **Strict brand adherence → On**, confirm and publish the updated revision. Have the pilot user
+   reselect the kit in a new presentation and repeat steps 1–6 with the same prompt. Pass only if every
+   layout comes from the approved template/slide master, with no invented layouts or added/removed
+   placeholders. End users cannot override this setting.
 
 The screenshots above show selection and discovery. A generated deck has not been inspected for this
 update; the output checks below remain the pilot's acceptance work.
@@ -524,7 +568,9 @@ successful skill execution.
 - [Brand Kit access and governance](https://support.microsoft.com/en-us/microsoft-365-copilot/configure-brand-kit-access-and-governance) — permissions and the handoff between IT and brand managers.
 - [Brand-manager Cloud Policy](https://learn.microsoft.com/en-us/copilot/implement/configure-brand-kit-governance-organizational-assets) — current policy procedure and membership checks.
 - [Organization asset libraries](https://learn.microsoft.com/en-us/sharepoint/organization-assets-library) — registration, supported pickers and propagation.
-- [Prepare PowerPoint templates](https://support.microsoft.com/en-us/powerpoint/copilot/keep-your-presentation-on-brand-with-copilot) and [manage kit template settings](https://support.microsoft.com/en-us/powerpoint/copilot/manage-brand-kit-template-settings-in-powerpoint).
+- [Prepare PowerPoint templates](https://support.microsoft.com/en-us/powerpoint/copilot/keep-your-presentation-on-brand-with-copilot) — samples, density, themes and placeholders.
+- [Build templates that work well with Copilot](https://support.microsoft.com/en-us/powerpoint/copilot/build-templates-that-work-well-with-copilot) — template assessment, supported files, editable content and the repair workflow.
+- [Manage kit template settings](https://support.microsoft.com/en-us/powerpoint/copilot/manage-brand-kit-template-settings-in-powerpoint) — speaker-note guidance, strict brand adherence and the brand-selection sequence.
 - [Excel skills](https://support.microsoft.com/en-us/excel/copilot/copilot-in-excel-skills) — documented `brandkit` entry point.
 - [Deploy organization skills](https://support.microsoft.com/en-us/powerpoint/copilot/deploy-organization-skills-for-copilot-in-powerpoint) and [the companion setup guide](/copilot-skills/).
 
