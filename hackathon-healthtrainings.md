@@ -344,38 +344,46 @@ if Czech fails, use English files for the demo and fill Czech values by hand.
 
 ## 8 · Agents (together) {#agents}
 
-We build the agents together in the afternoon. If you finish early, you can start in **Agent Builder**, again by describing, not by
-pasting finished instructions. In Microsoft 365 Copilot choose **New agent** and tell it what you need:
+We build the agent together in the afternoon in **Copilot Studio** (you need a Microsoft 365 Copilot licence). Again you describe
+what you need instead of pasting finished instructions.
+
+<div class="hk-box" markdown="1">
+<span class="hk-step">1</span> In Copilot Studio choose **Agents › New agent › Agent**. Check that you see the tabs **Build · Preview · Evaluate · Monitor**.<br>
+<span class="hk-step">2</span> Give it a name and write in **Instructions** what kind of colleague you want (example below).<br>
+<span class="hk-step">3</span> On the right, remove **Search all websites** and **Work IQ**, so it answers only from your site.<br>
+<span class="hk-step">4</span> **Knowledge › + › SharePoint**, paste your site address, **Add to agent**. Save.<br>
+<span class="hk-step">5</span> Test on the **Preview** tab, each question in a **New chat**.
+</div>
 
 <div class="hk-box hk-talk" markdown="1">
 <span class="hk-label">💬 Describe the colleague you want</span>
 
 ```text
-Potřebuju agenta pro personál lékáren, který odpovídá na otázky k poradenství při výdeji.
-Ať odpovídá jen z webu <adresa webu>, vždy uvede stránku, ze které čerpá, a když to web neuvádí, řekne to.
-Nikdy neuvádí dávkování ani značky. Když dotaz popisuje varovný signál, začne doporučením lékaře.
-Odpovídá česky, krátce, prakticky pro rozhovor u výdejního okna.
+Jsi poradce pro personál našich lékáren a odpovídáš na otázky z výdejního okna.
+Odpovídej jen podle schválených materiálů na webu <název webu> (stránky témat, Časté dotazy, Školicí materiály).
+Když tam odpověď není, řekni to a pošli za školitelem. Nic nedomýšlej, hlavně služby, termíny a jména.
+Varovné signály mají přednost: nejdřív doporuč lékaře, při akutním ohrožení volat 155.
+Nikdy neuváděj dávky ani obchodní značky (dávkování dle příbalové informace). Koncepty a staré verze nejsou zdroj.
+Odpovídej česky, 3–6 vět, a uveď stránku nebo soubor, ze kterého čerpáš.
 ```
 
-*Gloss: an agent for pharmacy staff; answers only from my site, cites the page, says when it doesn't know; no doses or brands;
-red flags first; short Czech answers.*
+*Gloss: answers only from my site, says when it doesn't know, red flags first, no doses or brands, drafts are not a source,
+short Czech answers with the source.*
 </div>
 
-Agent Builder turns this into a name, description and instructions; check them on the **Configure** tab. Add your site as knowledge,
-then test on **Try it** with four kinds of questions:
+Test it with four kinds of questions:
 
 | Type | Example | Good answer |
 |---|---|---|
 | A fact from your page | *Kdy poslat klienta se sennou rýmou k lékaři?* | The exact rule, with the page cited |
-| A warning sign | *Klient se sennou rýmou je dušný. Co mu doporučím?* | Doctor first |
+| A warning sign | *Klient popisuje pálení za hrudní kostí, které mu vystřeluje do paže. Co dělat?* | Doctor or 155 first, no product |
 | Something only in a draft | *Nabízíme <služba z konceptu>?* | The approved material doesn't mention it |
 | Something not on the site | *Jakou otevírací dobu má naše pobočka v <město>?* | The site doesn't say; no invented answer |
 
-When an answer is wrong, **tell Agent Builder in plain language** and test again: *Agent odpověděl z obecných znalostí. Uprav ho,
-aby odpovídal jen z webu a jinak řekl, že to neví.* See [Build agents in Agent Builder](https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agent-builder-build-agents).
-If describing in Czech is not offered, describe it in English and ask for Czech answers.
-
-Together we then compare it with Copilot Studio agents built on the same site.
+<div class="hk-box hk-tip" markdown="1">
+With **Debug mode** on in Preview you see which searches the agent ran on your site. When an answer is wrong, change the
+instructions in plain words, for example *Když stránka uvádí přesné číslo, uveď ho přesně*, save, and ask again in a new chat.
+</div>
 
 ## When something goes wrong {#trouble}
 
@@ -389,7 +397,7 @@ Together we then compare it with Copilot Studio agents built on the same site.
 | The page is invisible to colleagues | It is still a draft: open it and click **Publish** |
 | An approval card disappeared | You sent a message while it was waiting. Ask Cowork to repeat the step |
 | Autofill leaves columns empty | Check the instruction says where to look; try one English file; see the language note in step 7 |
-| The agent gives an old answer | Make sure only the current version is on the site, the page is published, and wait for indexing |
+| The agent gives an old answer | Make sure only the current version is on the site, the page is published, and wait for indexing; start a new chat |
 
 ## Finish line {#finish}
 
