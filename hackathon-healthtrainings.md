@@ -59,6 +59,7 @@ organization by talking to Cowork.
 - [6 · Make the skill smarter](#improve)
 - [7 · Autofill: metadata without typing](#autofill)
 - [8 · Agents (together)](#agents)
+- [9 · Bonus: a quiz app for trainers](#app)
 - [When something goes wrong](#trouble)
 - [Finish line](#finish)
 </div>
@@ -67,8 +68,9 @@ organization by talking to Cowork.
 
 <div class="hk-acts">
   <div class="hk-act"><b>🧭 Act 1 · Find and publish</b>Cowork finds every version of a topic, tells you which one is valid, and drafts a clean page. You decide and publish.<br><small>Most of the day · on your own</small></div>
-  <div class="hk-act"><b>🏷️ Act 2 · Autofill</b>SharePoint fills in topic, type, owner and summary for each file. You write the instructions in plain language.<br><small>About 45 minutes · on your own</small></div>
+  <div class="hk-act"><b>🏷️ Act 2 · Autofill</b>SharePoint fills in topic, type, owner and summary for each file. You describe the columns to Copilot in plain language.<br><small>About 45 minutes · on your own</small></div>
   <div class="hk-act"><b>🤖 Act 3 · Agents</b>An agent answers staff questions from your new site, and admits when the site doesn't know.<br><small>Afternoon · together with the facilitator</small></div>
+  <div class="hk-act"><b>🧩 Bonus · A trainer app</b>Copilot Code builds a quiz app from your approved material. Trainers approve every question first.<br><small>About an hour · optional</small></div>
 </div>
 
 Work alone or in pairs. One person drives Cowork, the other reads along and challenges the results; that second pair of eyes is
@@ -87,7 +89,7 @@ You work with real material in your real Microsoft 365. These rules keep it safe
 - **Nothing is public until you click Publish** in SharePoint. Cowork leaves pages as drafts.
 - **Drafts and old versions never go on the site**, not even in a footnote. If in doubt, leave it out and ask the topic owner.
 - **Content is approved by its owner.** Cowork drafts; a person who is responsible for the topic decides.
-- **Agents stay private until reviewed.** Share an agent with colleagues only after you have tested it.
+- **Agents and apps stay private until reviewed.** Share them with colleagues only after you have tested them.
 </div>
 
 ## How to talk to Cowork {#talk}
@@ -314,32 +316,99 @@ When your skill works well, share it with colleagues: **Customize › Skills ›
 
 ## 7 · Autofill: metadata without typing {#autofill}
 
-SharePoint can read each file in a library and fill in its columns: topic, type, owner, summary, keywords. You write, in plain
-language, what each column should contain. That is prompting too.
+SharePoint can read each file in a library and fill in its columns: topic, type, valid from, owner, summary. You set this up by
+**talking to Copilot in the library**: you describe each column, Copilot writes the autofill instructions and shows you a preview.
+Autofill columns come with the Microsoft 365 Copilot licence. Microsoft's guide:
+[Create autofill columns](https://learn.microsoft.com/en-us/sharepoint/copilot-in-sharepoint-create-autofill-columns).
 
-1. Open the document library on your site. Select the **Copilot** icon and ask it to create autofill columns, or open a column's
-   settings and turn on **Autofill**. See [Create autofill columns](https://learn.microsoft.com/en-us/sharepoint/copilot-in-sharepoint-create-autofill-columns).
-2. Write the instruction for each column. A good one says **what to find, where in the document, which values are allowed, and what
-   to do when it is missing**:
-
-<div class="hk-box hk-talk" markdown="1">
-<span class="hk-label">💬 One column, one clear instruction</span>
-
-```text
-Najdi datum vydání nebo schválení uvedené v dokumentu (obvykle u řádku „Datum“ nebo „Platné od“).
-Nepoužívej datum úpravy souboru. Pokud datum v dokumentu není, nech pole prázdné.
-```
-
-*Gloss: find the issue or approval date in the document; never the file's modified date; leave it empty if missing.*
+<div class="hk-box hk-tip" markdown="1">
+**Practise on a copy.** Create a separate document library on your new site, for example *Autofill test*, and upload 10–15 current
+files to it. Then hide it from search (**Library settings › Advanced settings › Search: No**), so your agents in step 8 don't find
+the same file twice.
 </div>
 
-3. Upload **three** current files first, wait for processing (**Autofill columns › View autofill activity**), and compare the values
-   with what you know.
-4. Improve the instructions where it guessed wrong, then upload the rest.
+### <span class="hk-step">7.1</span> Let Copilot propose
+
+Open the library and select the **Copilot** icon at the top right. Start broad and see what Copilot finds in your files:
+
+<div class="hk-box hk-talk" markdown="1">
+<span class="hk-label">💬 Start with its idea</span>
+
+```text
+Navrhni pro tuto knihovnu sloupce s automatickým vyplňováním. Ukaž mi náhled na souborech, nic neukládej.
+```
+
+*Gloss: suggest autofill columns for this library; show me a preview on the files; save nothing.*
+</div>
+
+Copilot suggests a few columns as cards (**Keep**, **Edit**, **Keep all**) and shows preview values in the file list. Nothing is saved
+yet. In our test it read Czech files and answered in Czech, although Microsoft's article says file processing is English only.
+
+### <span class="hk-step">7.2</span> Describe the columns you really need
+
+Its first idea is generic. Now describe your own scheme. For each column say **the name, the type, the allowed values, where in the
+document to look, and what to do when the value is missing**:
+
+<div class="hk-box hk-talk" markdown="1">
+<span class="hk-label">💬 Your scheme, column by column</span>
+
+```text
+Uprav návrhy podle našeho schématu. Chci tyto sloupce, názvy česky:
+1) Téma – jedna volba z hodnot <téma 1>, <téma 2>, <téma 3>, Obecné.
+2) Typ obsahu – jedna volba: Příručka, Checklist, Prezentace, Leták, <další typy>.
+3) Platné od – datum vydání nebo schválení uvedené v dokumentu, ne datum úpravy souboru.
+4) Vlastník obsahu – jméno autora nebo vlastníka uvedené v dokumentu.
+5) Shrnutí – 2 české věty, dohromady nejvýš 230 znaků: čemu se dokument věnuje a <co je pro vás nejdůležitější>.
+Když hodnota v dokumentu není, nech pole prázdné. Původní návrhy nahraď. Nejdřív mi ukaž náhled, nic neukládej.
+```
+
+*Gloss: reshape the suggestions into our scheme: topic and type from fixed lists, the date written in the document, the owner named
+in it, a short two-sentence summary; leave a field empty when the document doesn't say; preview first.*
+</div>
+
+**Enter sends the message straight away.** Write the request in one go, or prepare it in Notepad and paste it in.
+
+Copilot replaces the cards with yours and writes an instruction for each column; open **Edit** on a card to read it. Ask about
+anything you don't understand: *Proč je Vlastník obsahu text, a ne osoba?* (Why is the owner a text column and not a person?)
+
+### <span class="hk-step">7.3</span> Save, then run autofill again
+
+1. Select **Keep all**. The columns are created.
+2. **Select all files › Autofill columns › Autofill.** Do this even if the columns already show values: in our test, *Keep all* saved
+   the values from Copilot's **first**, generic preview, not from your scheme. The run said *"may take several hours"*; 17 files
+   were done in a few minutes.
+
+### <span class="hk-step">7.4</span> Check, then fix by talking
+
+Open a few files you know well and compare. In our test of 17 files, topic, valid from and language were right on every file and
+type on all but one. The owner was missing on spreadsheets, which have no author line. Expect the same kind of misses.
+
+When something is wrong, **tell Copilot what you checked and give it the exact instruction you want**. A vague *"fix it"* gets a
+confident *"Done"* that isn't:
+
+<div class="hk-box hk-talk" markdown="1">
+<span class="hk-label">💬 Say what you saw, say what you want</span>
+
+```text
+Zkontroloval jsem soubory: <co je špatně, např. shrnutí jsou useknutá uprostřed slova>.
+Změň instrukci sloupce <sloupec> na: „<přesné znění>“. Pak potvrď, že má sloupec automatické vyplňování pořád zapnuté.
+```
+
+*Gloss: I checked the files and saw this; change the column's instruction to exactly this; then confirm autofill is still on.*
+</div>
+
+Then run **Autofill** on the files again and check once more.
 
 <div class="hk-box hk-warn" markdown="1">
-**Language:** Microsoft's autofill article currently says file processing is English only. Try your Czech files and note what happens;
-if Czech fails, use English files for the demo and fill Czech values by hand.
+<span class="hk-label">⚠️ Three things we hit</span>
+
+- **Answers stop at 255 characters**, even in a multi-line column, cut mid-word. Ask for a short summary (about 230 characters) in
+  the instruction.
+- **Changing a column's type switches its autofill off.** When we asked Copilot to make a column multi-choice, it said
+  *"Done, I checked the changes"*, yet both columns it touched had autofill off and stayed empty on the next run. After any
+  type change, open the column's settings and check that autofill is still on, with your instruction.
+- **Only allowed values?** A choice column can still get a value outside the list. Say *"jen z hodnot … jinak Všichni"* (only these
+  values, otherwise "Everyone") in the instruction, and check.
 </div>
 
 ## 8 · Agents (together) {#agents}
@@ -377,12 +446,141 @@ Test it with four kinds of questions:
 |---|---|---|
 | A fact from your page | *Kdy poslat klienta se sennou rýmou k lékaři?* | The exact rule, with the page cited |
 | A warning sign | *Klient popisuje pálení za hrudní kostí, které mu vystřeluje do paže. Co dělat?* | Doctor or 155 first, no product |
-| Something only in a draft | *Nabízíme <služba z konceptu>?* | The approved material doesn't mention it |
+| Something only in a draft | *Nabízíme …?* with a service that only a draft mentions | The approved material doesn't mention it |
 | Something not on the site | *Jakou otevírací dobu má naše pobočka v <město>?* | The site doesn't say; no invented answer |
 
 <div class="hk-box hk-tip" markdown="1">
 With **Debug mode** on in Preview you see which searches the agent ran on your site. When an answer is wrong, change the
 instructions in plain words, for example *Když stránka uvádí přesné číslo, uveď ho přesně*, save, and ask again in a new chat.
+</div>
+
+## 9 · Bonus: a quiz app for trainers {#app}
+
+**Copilot Code** builds small apps from a conversation: you describe what you need, it plans, asks questions, builds, and shows the
+app in a preview. Here it turns your approved training material into quiz questions for staff, with a trainer who approves every
+question before anyone sees it. You never write code; you **brief, answer, check and correct**, the same way you talked to Cowork.
+
+<div class="hk-box" markdown="1">
+☐ In the **Copilot** app (Microsoft 365 Copilot) you see a **Code** tab next to **Home**. If not, your organization has not enabled Copilot
+Code yet: skip this part.<br>
+☐ Your new site has at least one topic with **approved** material.<br>
+☐ Under the input box you can pick the **model** and its **effort**. For building, choose a strong model and high effort; we used
+*Opus 5.5* at *Extra high*.
+</div>
+
+### <span class="hk-step">9.1</span> Describe the need and ask for a plan
+
+Open **Code** and start a new session. Brief it like a developer colleague: who it is for, where the content is, what the app must do,
+and what must never happen. Ask for a plan before it builds:
+
+<div class="hk-box hk-talk" markdown="1">
+<span class="hk-label">💬 Brief first, build later</span>
+
+```text
+Jsem <role> v <typ firmy>. Chci jednoduchou interní aplikaci pro školitele: „Kvíz ze školení“.
+Z našich schválených materiálů na webu <adresa webu> (knihovna <knihovna>, jen položky se stavem <Schváleno>)
+připraví kvízové otázky pro <kdo bude odpovídat>, hlavně na <co je nejdůležitější, např. varovné signály a kdy poslat klienta k lékaři>.
+Školitel otázky zkontroluje a schválí, teprve pak je uvidí personál.
+Personál si vybere téma, odpoví na 5 otázek a uvidí správnou odpověď s odkazem na zdroj.
+Školitel vidí, která témata dělají lidem potíže. V otázkách nesmí být <co nechcete, např. dávky a obchodní značky>.
+Než začneš stavět, navrhni plán: jaká data a kde je uložíš, jak vzniknou otázky a co budeš potřebovat ode mě.
+```
+
+*Gloss: I'm a training lead; build a simple internal quiz app from our approved material on this site; questions mainly on what
+matters most; a trainer approves before staff see them; staff pick a topic, answer 5 questions, see the right answer with its source;
+trainers see which topics are hard; never doses or brands; plan first: which data where, how the questions are made, what you
+need from me.*
+</div>
+
+Read the plan like a project owner. In our test it proposed two new SharePoint lists (questions and answers) and explained that
+**the running app cannot call AI**: Copilot Code writes the questions **now, while building**, and saves them as drafts. When your
+material changes, you come back to the same session and ask for new questions.
+
+### <span class="hk-step">9.2</span> Answer its questions
+
+Copilot Code asks what it cannot know. Answer carefully, because each answer becomes a rule in the app:
+
+| It may ask | A good answer |
+|---|---|
+| Who sees the trainer part? | Name the trainers |
+| Store answers with names, or anonymously? | **Anonymously**, unless you have agreed otherwise. SharePoint still records who created each answer row |
+| Some material is past its review date. Use it? | Your call: leave it out, or use it with a warning the trainer sees |
+| May I create the two lists? | Yes, and **hide them from search**, so your agents never answer from draft questions |
+
+It could not hide the lists from search itself and said so. Do it yourself: open each list, **List settings › Advanced settings ›
+Search: No**.
+
+### <span class="hk-step">9.3</span> Approve each step, and keep them small
+
+While it builds, Copilot Code asks before it touches your Microsoft 365: **Create these 2 lists?**, **Connect to this service? Office
+365 Users** (so the app knows who is a trainer), **Add these 9 list items?**. Read each card before you click; don't choose
+**Always allow**.
+
+When a big step fails, don't just say *"try again"*. Make the step smaller and ask it to check its own work:
+
+<div class="hk-box hk-talk" markdown="1">
+<span class="hk-label">💬 Smaller steps, checked</span>
+
+```text
+Zápis všech otázek najednou selhal a seznam je prázdný (ověřil jsem).
+Zapiš je po menších dávkách – jedno téma najednou – a po každé dávce ověř počet položek, ať nic není dvakrát.
+```
+
+*Gloss: writing all questions at once failed and the list is empty (I checked); write them one topic at a time and count after each
+batch, so nothing is duplicated.*
+</div>
+
+In our test the one-shot write of 64 questions failed twice; one topic at a time worked, with a count after each batch.
+
+### <span class="hk-step">9.4</span> Review the questions as the trainer
+
+The app opens in the **Preview** pane next to the conversation. Switch to the trainer view and go through the drafts: **Schválit**
+(approve), **Upravit** (edit) or **Vyřadit** (reject).
+
+![Trainer view of the quiz app: draft questions with four options, the correct one marked, an explanation and a source link, with Approve, Edit and Reject buttons](/assets/hackathon-healthtrainings/19-quiz-trainer.webp)
+*Trainer view: each draft shows the correct answer, the explanation and the source document with its version.*
+
+<details markdown="1">
+<summary>✅ What a good question looks like</summary>
+
+- The number or rule is **exactly** as in the source (*14 days*, not *about two weeks*).
+- It links the source document and its version.
+- Nothing from drafts, old versions or rejected proposals.
+- No doses, no brands, nothing you excluded in the brief.
+- The wrong options sound plausible too. In our test this was the weak spot: the right answer was often the only one that said
+  *"see a doctor"*, so it was easy to guess.
+</details>
+
+Turn what you find into a request, for example:
+
+<div class="hk-box hk-talk" markdown="1">
+<span class="hk-label">💬 Make it harder to guess</span>
+
+```text
+U otázek na varovné signály je správná odpověď často jediná, která zmiňuje lékaře, takže se dá uhodnout.
+Přepiš špatné možnosti tak, aby zněly stejně rozumně, třeba lékař, ale se špatnou lhůtou. Nejdřív mi ukaž tři příklady.
+```
+
+*Gloss: in red-flag questions the right answer is often the only one mentioning a doctor; rewrite the wrong options so they sound
+just as reasonable, e.g. a doctor but with the wrong time limit; show three examples first.*
+</div>
+
+### <span class="hk-step">9.5</span> Take the quiz yourself
+
+Approve a few questions, switch to the quiz view, pick a topic and answer. Then open the trainer's **Výsledky** (results): success
+rate by topic and the most common mistakes.
+
+![Quiz summary: 3 of 4 correct, each question with the correct answer, the answer given and the source document](/assets/hackathon-healthtrainings/18-quiz-result.webp)
+*After the quiz: every question with the correct answer, your answer and the source.*
+
+<div class="hk-box hk-rule" markdown="1">
+<span class="hk-label">Before colleagues use it</span>
+
+- **Published is not shared.** Copilot Code may publish the app on its own; nobody else sees it until you share it.
+- **The approval step lives in the app only.** Anyone with access to the question list can read drafts in SharePoint. Ask your
+  site owner to let only trainers edit the question list.
+- **Each person who runs the app needs Power Apps Premium or Copilot Credits.** Check with IT before you share it.
+- **A trainer approves every question.** Generated questions are drafts, like Cowork's pages.
 </div>
 
 ## When something goes wrong {#trouble}
@@ -391,13 +589,19 @@ instructions in plain words, for example *Když stránka uvádí přesné čísl
 |---|---|
 | Cowork ignores the skill | Start the request with `/` and the skill name; check the chip under Workspace › Plugins; start a new conversation after changing the skill |
 | Two copies of a skill | Uploading the same name twice keeps both with a number. Delete the old one in **Customize › Skills** |
-| It missed files you know exist | Ask: *Prohledej i soubory, které mi sdíleli kolegové, a složku <složka>.* Search indexing can lag for new files |
+| It missed files you know exist | Ask: *Prohledej i soubory, které mi sdíleli kolegové, a složku …* and name the folder. Search indexing can lag for new files |
 | It cannot create the library | Create the document library yourself (**Settings › Site contents › New**), then ask Cowork to add the columns |
 | It could not set page properties | Fill them in under **Page details** before you publish |
 | The page is invisible to colleagues | It is still a draft: open it and click **Publish** |
 | An approval card disappeared | You sent a message while it was waiting. Ask Cowork to repeat the step |
-| Autofill leaves columns empty | Check the instruction says where to look; try one English file; see the language note in step 7 |
+| Autofill values look generic after **Keep all** | Select the files › **Autofill columns › Autofill** to run it again with your scheme |
+| Autofill leaves a column empty | Open the column's settings and check autofill is still on (a type change switches it off); check the instruction says where to look |
+| Summaries end mid-word | Autofill answers stop at 255 characters: ask for about 230 characters in the instruction, then run Autofill again |
+| Copilot says *Done*, but nothing changed | Check one file yourself, then tell it exactly what you saw and the exact instruction you want |
 | The agent gives an old answer | Make sure only the current version is on the site, the page is published, and wait for indexing; start a new chat |
+| No **Code** tab in the Copilot app | Copilot Code isn't enabled for you; skip the bonus |
+| Copilot Code fails on a big step | Ask for smaller batches and a count after each one; check the list first, so nothing is written twice |
+| The agent answers from quiz questions or the test library | Hide those lists and libraries from search: **Settings › Advanced settings › Search: No** |
 
 ## Finish line {#finish}
 
@@ -405,7 +609,8 @@ instructions in plain words, for example *Když stránka uvádí přesné čísl
 ☐ Both skills tailored to your organization, with at least one rule you added yourself.<br>
 ☐ At least one topic published as a clean page, approved by its owner, with nothing from drafts or old versions.<br>
 ☐ Page properties filled in.<br>
-☐ Autofill tried on a few files, with notes on what worked.<br>
+☐ Autofill set up by talking to Copilot, checked on files you know, with notes on what it got wrong.<br>
+☐ Bonus: a quiz app with a few questions you approved yourself.<br>
 ☐ A list of what surprised you, what Cowork got wrong, and how you fixed it by talking. Bring it to the afternoon.
 </div>
 
