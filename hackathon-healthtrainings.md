@@ -45,7 +45,8 @@ from.
 
 **Downloads:** [training-finder.zip](/assets/hackathon-healthtrainings/training-finder.zip) ·
 [training-publisher.zip](/assets/hackathon-healthtrainings/training-publisher.zip). Two starter skills; you will tailor both to your
-organization by talking to Cowork.
+organization by talking to Cowork. For the agent in step 8:
+[rychle-hledani-schvalenych.zip](/assets/hackathon-healthtrainings/rychle-hledani-schvalenych.zip), a skill for faster answers.
 
 <div class="hk-toc" markdown="1">
 - [Your day at a glance](#glance)
@@ -454,6 +455,44 @@ With **Debug mode** on in Preview you see which searches the agent ran on your s
 instructions in plain words, for example *Když stránka uvádí přesné číslo, uveď ho přesně*, save, and ask again in a new chat.
 </div>
 
+### <span class="hk-step">8.1</span> Faster answers with a skill
+
+Turn on **Debug mode** and look at the steps: each search of your site takes about a second. Most of the wait comes from the agent
+reading many long search results, often from two searches, and then writing a long answer. A skill can tell it to search once,
+take fewer results and answer briefly. In our rehearsal this took a typical answer from about 16 to about 12 seconds, with the
+same correct answers and sources.
+
+<div class="hk-box" markdown="1">
+<span class="hk-step">1</span> Download [rychle-hledani-schvalenych.zip](/assets/hackathon-healthtrainings/rychle-hledani-schvalenych.zip).<br>
+<span class="hk-step">2</span> In your agent, **Skills › + › Upload a skill** and choose the file. Or choose **Create from blank** and copy the
+name, description and instructions from `SKILL.md` in the zip.<br>
+<span class="hk-step">3</span> Save, reload the page, and ask in a **New chat** on **Preview**.<br>
+<span class="hk-step">4</span> Check the steps: **Used skill: rychle-hledani-schvalenych**, then a single search.
+</div>
+
+The skill uses our approval words (*Schváleno*, *Koncept*, *Ke schválení*, *Archiv*). Change them to yours, either in the skill's
+instructions or by describing the skill yourself with **Skills › + › Generate with AI**:
+
+<div class="hk-box hk-talk" markdown="1">
+<span class="hk-label">💬 Describe a fast-answer skill</span>
+
+```text
+Skill pro rychlé odpovědi z našeho webu. Použij ho u každé odborné otázky personálu.
+Hledej jednou, s malým počtem výsledků. Ber jen materiály se stavem <naše slovo pro schváleno>
+a stránky témat; <naše slova pro koncept a archiv> ignoruj. Druhé hledání jen když první nic nenajde.
+Neotevírej celé dokumenty. Odpověz nejvýš ve 4 větách, varovné signály první, na konci zdroj.
+```
+
+*Gloss: one search with few results, approved material and topic pages only, a second search only if nothing is found, no
+whole documents, at most 4 sentences with red flags first and the source at the end.*
+</div>
+
+<div class="hk-box hk-tip" markdown="1">
+**What a skill cannot do:** filter the search by your columns. The agent's search ignores conditions such as *Stav: Schváleno*,
+so the skill picks the approved items out of the results it gets. Keeping drafts and old versions off the site is still what
+protects you most.
+</div>
+
 ## 9 · Bonus: a quiz app for trainers {#app}
 
 **Copilot Code** builds small apps from a conversation: you describe what you need, it plans, asks questions, builds, and shows the
@@ -602,6 +641,7 @@ rate by topic and the most common mistakes.
 | No **Code** tab in the Copilot app | Copilot Code isn't enabled for you; skip the bonus |
 | Copilot Code fails on a big step | Ask for smaller batches and a count after each one; check the list first, so nothing is written twice |
 | The agent answers from quiz questions or the test library | Hide those lists and libraries from search: **Settings › Advanced settings › Search: No** |
+| The agent still behaves as before after you changed or removed a skill | Save the agent, reload the page, then start a **New chat** in Preview |
 
 ## Finish line {#finish}
 
