@@ -513,7 +513,7 @@ So in a large organization, keep the creation group to the people who own brand 
 kits under **Official**; shared kits appear under **User**. A person outside the creation group who gets a kit
 with **Can edit** can only view it. Policy changes can take up to 24 hours.
 
-**Not checked yet:** whether a viewer can use the kit's skills in PowerPoint.
+**Skills:** a viewer who selects the kit in PowerPoint gets its skills and can use them like any other skill.
 
 ## Step 10 — 🙋 User: verify the complete setup
 
