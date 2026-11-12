@@ -464,8 +464,8 @@ an editor link publishes changes. Record the approved revision and repeat the pi
 
 **Official** is not the only way to give people a kit. A kit you publish without making it official goes
 only to the people and Microsoft 365 groups you share it with. Nobody else in the organization sees it. So you can give
-Sales one kit and Marketing another, run a pilot, or serve a sub-brand or campaign team. It needs no Brand Manager
-policy, and you stay the owner. **Official** means everyone in the organization.
+Sales one kit and Marketing another, run a pilot, or serve a sub-brand or campaign team. You stay the owner.
+**Official** means everyone in the organization.
 
 | Kit state | Who gets it | Roles you can give | Owner |
 |---|---|---|---|
@@ -484,8 +484,11 @@ Here is what we saw on 11–12 November 2026:
 - **Make official** transfers ownership to Brand Managers and publishes the kit immediately. Use it when the
   pilot is approved, not to try the kit out.
 
-**Not checked yet:** whether a viewer can use the kit's skills in PowerPoint. Test it in your organization before you
-rely on it.
+**Not checked yet.** We ran these tests with accounts that are also Brand Managers. We have not yet confirmed that a
+user *without* the Brand Manager role can publish a kit, or which group types work besides Microsoft 365 groups
+(security groups, distribution lists). Microsoft's article names no role for publishing and no group types. Also
+unconfirmed: whether a viewer can use the kit's skills in PowerPoint. Test these in your organization before you
+rely on them.
 
 ## Step 10 — 🙋 User: verify the complete setup
 
