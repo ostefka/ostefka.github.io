@@ -23,9 +23,9 @@ permalink: /copilot-brand-kit/
 > PowerPoint template, sample slides and speaker notes. Choose strict adherence deliberately for
 > each kit. Put brand-specific procedures in the kit and shared company procedures in organization skills.
 >
-> **A kit does not have to go to everyone.** Publish it without making it official and share it with a Microsoft 365
-> group: only that group gets it, so Sales and Marketing can each have their own kit. **Official** is for the whole
-> organization. See Step 9.
+> **A kit does not have to go to everyone.** Any Copilot user can publish a kit without making it official and share
+> it with a group: only that group gets it, so Sales and Marketing can each have their own kit. **Official** (whole
+> organization) is the Brand Managers' step. See Step 9.
 >
 > Our kit accepted Word `.dotx` and Excel `.xltx` templates on **8 November 2026**. That proves upload
 > acceptance. Their use by Copilot remains unverified, and Excel's **`brandkit`** entry point was absent in our tenant.
@@ -463,8 +463,9 @@ an editor link publishes changes. Record the approved revision and repeat the pi
 ### A kit for some people only: publish without making it official
 
 **Official** is not the only way to give people a kit. A kit you publish without making it official goes
-only to the people and Microsoft 365 groups you share it with. Nobody else in the organization sees it. So you can give
-Sales one kit and Marketing another, run a pilot, or serve a sub-brand or campaign team. You stay the owner.
+only to the people and groups you share it with. Nobody else in the organization sees it. So you can give
+Sales one kit and Marketing another, run a pilot, or serve a sub-brand or campaign team. Any Copilot user can do this,
+not only Brand Managers, and you stay the owner.
 **Official** means everyone in the organization.
 
 | Kit state | Who gets it | Roles you can give | Owner |
@@ -484,11 +485,21 @@ Here is what we saw on 11–12 November 2026:
 - **Make official** transfers ownership to Brand Managers and publishes the kit immediately. Use it when the
   pilot is approved, not to try the kit out.
 
-**Not checked yet.** We ran these tests with accounts that are also Brand Managers. We have not yet confirmed that a
-user *without* the Brand Manager role can publish a kit, or which group types work besides Microsoft 365 groups
-(security groups, distribution lists). Microsoft's article names no role for publishing and no group types. Also
-unconfirmed: whether a viewer can use the kit's skills in PowerPoint. Test these in your organization before you
-rely on them.
+**Who can do what.** We repeated the test with an ordinary user who is not a Brand Manager:
+
+| Action | Any user with Copilot | Brand Manager |
+|---|---|---|
+| Create a kit | ✅ (unless your organization limits creation to a group) | ✅ |
+| Share with people or groups, publish to them | ✅ | ✅ |
+| Receive a kit through a group | ✅ | ✅ |
+| **Make official** (whole organization) | ❌ no button | ✅ |
+| **Share with everyone in my organization** | ❌ not offered | only once the kit is official |
+
+**Which groups.** The Share search offered Microsoft 365 groups, security groups and mail-enabled security groups.
+It did not offer distribution lists. We confirmed delivery through a Microsoft 365 group; for a security group, check
+that a member sees the kit before you rely on it.
+
+**Not checked yet:** whether a viewer can use the kit's skills in PowerPoint.
 
 ## Step 10 — 🙋 User: verify the complete setup
 
