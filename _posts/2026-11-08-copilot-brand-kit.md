@@ -3,7 +3,7 @@ layout: default
 title: "Setting up a Copilot Brand Kit from scratch"
 description: "An enterprise setup guide for IT, brand managers and users: delegate access, connect asset libraries, publish an official Copilot Brand Kit and verify its skills in PowerPoint."
 date: 2026-11-08
-last_modified_at: 2026-11-09
+last_modified_at: 2026-11-12
 permalink: /copilot-brand-kit/
 ---
 
@@ -23,11 +23,15 @@ permalink: /copilot-brand-kit/
 > PowerPoint template, sample slides and speaker notes. Choose strict adherence deliberately for
 > each kit. Put brand-specific procedures in the kit and shared company procedures in organization skills.
 >
+> **A kit does not have to go to everyone.** Publish it without making it official and share it with a Microsoft 365
+> group: only that group gets it, so Sales and Marketing can each have their own kit. **Official** is for the whole
+> organization. See Step 9.
+>
 > Our kit accepted Word `.dotx` and Excel `.xltx` templates on **8 November 2026**. That proves upload
 > acceptance. Their use by Copilot remains unverified, and Excel's **`brandkit`** entry point was absent in our tenant.
 
 > **What this article is.** A practical enterprise setup guide based on public Microsoft documentation.
-> Observations and screenshots come from our lab tenant, last checked **9 November 2026**.
+> Observations and screenshots come from our lab tenant, last checked **12 November 2026**.
 > Recommendations and verification tests are identified separately from observed results. Menu labels and
 > availability can differ during rollout.
 
@@ -61,7 +65,7 @@ organization plugins. Use the appropriate existing roles rather than giving the 
 | Resource | Purpose | Ownership |
 |---|---|---|
 | Organization asset library | Approved images and Office templates exposed in supported pickers | SharePoint admin registers; brand team maintains content |
-| User Brand Kit | Creator's kit, optionally shared with editors and viewers | Creator and permitted editors |
+| User Brand Kit | Creator's kit. Once published, only the people and groups it is shared with get it, e.g. one kit per team (Step 9) | Creator and permitted editors |
 | Official Brand Kit | Organization-owned, approved kit | Delegated brand managers |
 | Organization skill | Shared procedure available without selecting a brand | IT deploys; business owner maintains instructions |
 
@@ -455,6 +459,33 @@ status is also visible on the Manage Brand Kits page above.
 The current guide describes draft/published revisions, while the older template-settings guide says its
 toggle saves automatically. Check what viewers actually receive in your tenant. Do not assume that sharing
 an editor link publishes changes. Record the approved revision and repeat the pilot after updates.
+
+### A kit for some people only: publish without making it official
+
+**Official** is not the only way to give people a kit. A kit you publish without making it official goes
+only to the people and Microsoft 365 groups you share it with. Nobody else in the organization sees it. So you can give
+Sales one kit and Marketing another, run a pilot, or serve a sub-brand or campaign team. It needs no Brand Manager
+policy, and you stay the owner. **Official** means everyone in the organization.
+
+| Kit state | Who gets it | Roles you can give | Owner |
+|---|---|---|---|
+| Shared, not published | Editors only, to build it together | **Can edit** | Creator |
+| Published, not official | Only the people and groups it is shared with | **Can edit**, **Can view** | Creator |
+| Official | Everyone in the organization | Brand Managers edit, everyone uses | Brand Managers |
+
+Here is what we saw on 11–12 November 2026:
+
+- **Share** before publishing offers only **Can edit**. The dialog says viewer access becomes available after publishing.
+- **Publish** makes the kit available to the people it is shared with. After publishing, **Can view** appears.
+  We shared a test kit as **Can view** with a Microsoft 365 group (the Share box searches people *and* groups) and
+  removed the colleague's own access. The colleague, a member of that group, still saw the kit in **Select brand**,
+  marked with a shared icon, next to the official kit.
+- **Share with everyone in my organization** stays greyed out until the kit is official.
+- **Make official** transfers ownership to Brand Managers and publishes the kit immediately. Use it when the
+  pilot is approved, not to try the kit out.
+
+**Not checked yet:** whether a viewer can use the kit's skills in PowerPoint. Test it in your organization before you
+rely on it.
 
 ## Step 10 — 🙋 User: verify the complete setup
 
