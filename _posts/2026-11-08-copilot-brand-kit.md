@@ -499,6 +499,20 @@ Here is what we saw on 11–12 November 2026:
 It did not offer distribution lists. We confirmed delivery through a Microsoft 365 group; for a security group, check
 that a member sees the kit before you rely on it.
 
+**Who can create is the setting that matters.** Sharing a kit has no admin setting of its own: anyone who can
+create a kit can share it with any group. Microsoft's [governance page](https://learn.microsoft.com/en-us/copilot/implement/configure-brand-kit-governance-organizational-assets)
+lists two independent policies in the Microsoft 365 Apps admin center (**Customization › Policy Management**, a
+tenant-level policy at priority 0). Each one points at a mail-enabled security group:
+
+| Policy | Controls |
+|---|---|
+| **Restrict brand kit creation** | Who can create and edit personal kits. Users outside the group don't see the option to create one. Until it is set, any Copilot user can create kits, which is what we saw. |
+| **Elevated role for Brand Managers** | Who can publish, edit and manage official kits (Step 1) |
+
+So in a large organization, keep the creation group to the people who own brand material, and point users to the
+kits under **Official**; shared kits appear under **User**. A person outside the creation group who gets a kit
+with **Can edit** can only view it. Policy changes can take up to 24 hours.
+
 **Not checked yet:** whether a viewer can use the kit's skills in PowerPoint.
 
 ## Step 10 — 🙋 User: verify the complete setup
